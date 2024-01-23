@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Auth />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/index" element={<Index />} />
+        <Route path="/" element={<Index />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/history-order" element={<HistoryOrder />} />

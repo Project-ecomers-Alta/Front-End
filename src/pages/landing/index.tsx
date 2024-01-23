@@ -58,6 +58,48 @@ const index = () => {
           Grab the Best Deal!
         </p>
       </div>
+      <div className="flex justify-center gap-10 mb-4">
+        <div className="w-[300px] drop-shadow-2xl">
+          <div>
+            <img src={Image} width={300} alt="" />
+          </div>
+          <div className="bg-[#F8F4EA] p-4">
+            <p className="font-semibold">Asics Gel Kayano UK10</p>
+            <p className="text-[#DD611B] font-semibold">£175.00</p>
+            <p>Toko A</p>
+          </div>
+        </div>
+        <div className="w-[300px] drop-shadow-2xl">
+          <div>
+            <img src={Image} width={300} alt="" />
+          </div>
+          <div className="bg-[#F8F4EA] p-4">
+            <p className="font-semibold">Asics Gel Kayano UK9.5</p>
+            <p className="text-[#DD611B] font-semibold">£175.00</p>
+            <p>Toko A</p>
+          </div>
+        </div>
+        <div className="w-[300px] drop-shadow-2xl">
+          <div>
+            <img src={Image} width={300} alt="" />
+          </div>
+          <div className="bg-[#F8F4EA] p-4">
+            <p className="font-semibold">Asics Gel Kayano UK9</p>
+            <p className="text-[#DD611B] font-semibold">£175.00</p>
+            <p>Toko A</p>
+          </div>
+        </div>
+        <div className="w-[300px] drop-shadow-2xl">
+          <div>
+            <img src={Image} width={300} alt="" />
+          </div>
+          <div className="bg-[#F8F4EA] p-4">
+            <p className="font-semibold">Asics Gel Kayano UK8</p>
+            <p className="text-[#DD611B] font-semibold">£175.00</p>
+            <p>Toko A</p>
+          </div>
+        </div>
+      </div>
       <Pagination className="mb-4">
         <PaginationContent>
           <PaginationItem>

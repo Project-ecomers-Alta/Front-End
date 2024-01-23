@@ -1,15 +1,15 @@
-import { ReactNode } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { ReactNode } from "react"
+import Footer from "./Footer"
+import NavbarLogin from "./Navbarlogin"
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="w-full min-h-screen overflow-hidden">
-      <Navbar />
+      <NavbarLogin />
       {children}
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

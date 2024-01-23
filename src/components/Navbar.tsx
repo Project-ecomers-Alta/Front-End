@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import Cart from "../assets/shopping_cart.png"
 
 function Navbar() {
   return (
@@ -14,11 +15,11 @@ function Navbar() {
       <div className="flex">
         <div className="bg-white py-2 px-4 rounded-md">Login/Register</div>
         <div className="bg-white py-2 px-4 rounded-xl mx-6">
-          <img src="./images/shopping_cart 1.png" />
+          <img className="w-8 h-7" src={Cart} />
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

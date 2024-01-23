@@ -1,10 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Auth from "../pages/auth/index";
-import Register from "../pages/auth/register";
-import Profile from "../pages/users/profile";
-import ChangePassword from "../pages/users/changePassword";
-import HistoryOrder from "../pages/users/historyOrder";
-import ShopProfile from "../pages/users/shopProfile";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Auth from "../pages/auth/index"
+import Register from "../pages/auth/register"
+import Profile from "../pages/users/profile"
+import ChangePassword from "../pages/users/changePassword"
+import HistoryOrder from "../pages/users/historyOrder"
+import ShopProfile from "../pages/users/shopProfile"
+import ProductDetail from "@/pages/users/productDetail"
+import PaymentPage from "@/pages/users/paymentPage"
+import AdminUser from "@/pages/admin/adminUser"
+import AdminOrder from "@/pages/admin/adminOrder"
 
 function App() {
   return (
@@ -16,9 +20,13 @@ function App() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/history-order" element={<HistoryOrder />} />
         <Route path="/shop-profile" element={<ShopProfile />} />
+        <Route path="/product-detail" element={<ProductDetail />} />
+        <Route path="/payment-page" element={<PaymentPage />} />
+        <Route path="/admin-user" element={<AdminUser />} />
+        <Route path="/admin-order" element={<AdminOrder />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

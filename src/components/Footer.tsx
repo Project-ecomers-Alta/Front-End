@@ -1,4 +1,6 @@
-import React from "react";
+import React from "react"
+import Whatsapp from "../assets/whatsapp.png"
+import Telephone from "../assets/telephone.png"
 
 function Footer() {
   return (
@@ -23,15 +25,19 @@ function Footer() {
         <div className="text-white">
           <div className="pb-4 text-xl font-semibold">Contact Us</div>
           <div className="text-base">
-            <div>
-              <img src="" alt="" />
-              <p>WhatsApp</p>
-              <p>0812-1212-1212</p>
+            <div className="flex items-center">
+              <img className="w-10 h-10 pe-3" src={Whatsapp} />
+              <div>
+                <p>WhatsApp</p>
+                <p>0812-1212-1212</p>
+              </div>
             </div>
-            <div>
-              <img src="" alt="" />
-              <p>Call Us</p>
-              <p>0812-1212-1212</p>
+            <div className="flex items-center">
+              <img className="w-10 h-10 pe-3" src={Telephone} alt="" />
+              <div>
+                <p>Call Us</p>
+                <p>0812-1212-1212</p>
+              </div>
             </div>
           </div>
         </div>
@@ -45,7 +51,7 @@ function Footer() {
         <div>©2024 All rights reserved. Name E-commerce Ltd.</div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

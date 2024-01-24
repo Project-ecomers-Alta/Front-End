@@ -1,11 +1,11 @@
-import Footer from "@/components/Footer"
-import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer";
+import NavbarLogin from "@/components/Navbarlogin";
 
 function PaymentPage() {
   return (
     <div>
       <header>
-        <Navbar />
+        <NavbarLogin />
       </header>
 
       <div className="px-28">
@@ -37,7 +37,7 @@ function PaymentPage() {
         <Footer />
       </footer>
     </div>
-  )
+  );
 }
 
-export default PaymentPage
+export default PaymentPage;

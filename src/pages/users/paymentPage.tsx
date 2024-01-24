@@ -1,11 +1,11 @@
 import Footer from "@/components/Footer"
-import Navbar from "@/components/Navbar"
+import NavbarLogin from "@/components/Navbarlogin"
 
 function PaymentPage() {
   return (
     <div>
       <header>
-        <Navbar />
+        <NavbarLogin />
       </header>
 
       <div className="px-28">

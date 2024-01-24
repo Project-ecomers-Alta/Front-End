@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer"
-import NavbarLogin from "@/components/Navbarlogin"
+import Footer from "@/components/Footer";
+import NavbarLogin from "@/components/Navbarlogin";
 
 function PaymentPage() {
   return (
@@ -37,7 +37,7 @@ function PaymentPage() {
         <Footer />
       </footer>
     </div>
-  )
+  );
 }
 
-export default PaymentPage
+export default PaymentPage;

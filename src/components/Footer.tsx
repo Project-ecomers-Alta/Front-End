@@ -1,6 +1,5 @@
-import React from "react"
-import Whatsapp from "../assets/whatsapp.png"
-import Telephone from "../assets/telephone.png"
+import Whatsapp from "../assets/whatsapp.png";
+import Telephone from "../assets/telephone.png";
 
 function Footer() {
   return (
@@ -51,7 +50,7 @@ function Footer() {
         <div>©2024 All rights reserved. Name E-commerce Ltd.</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

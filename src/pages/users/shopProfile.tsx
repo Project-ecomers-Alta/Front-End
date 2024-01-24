@@ -51,7 +51,7 @@ const shopProfile = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col bg-gray-200 p-4 gap-8 rounded-lg">
+        <div className="flex flex-col bg-gray-200 p-6 gap-8 rounded-lg">
           <div className="text-4xl font-semibold">Edit Shop</div>
           <div className="flex gap-2">
             <div>
@@ -97,7 +97,7 @@ const shopProfile = () => {
           <div>
             <img src={Image} className="rounded-full" width={160} alt="" />
           </div>
-          <button className="bg-gray-400 hover:bg-gray-400 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
+          <button className="bg-gray-300 hover:bg-gray-300 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
             Select image
           </button>
         </div>

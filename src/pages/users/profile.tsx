@@ -80,7 +80,7 @@ const profile = () => {
           <div>
             <img src={Image} className="rounded-full" width={160} alt="" />
           </div>
-          <button className="bg-gray-400 hover:bg-gray-400 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
+          <button className="bg-gray-300 hover:bg-gray-300 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
             Select image
           </button>
         </div>

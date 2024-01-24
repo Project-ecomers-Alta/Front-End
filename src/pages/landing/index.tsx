@@ -59,7 +59,7 @@ const index = () => {
         </p>
       </div>
       <div className="flex justify-center gap-10 mb-4">
-        <div className="w-[300px] drop-shadow-2xl">
+        <div className="w-[300px] shadow-2xl">
           <div>
             <img src={Image} width={300} alt="" />
           </div>
@@ -69,7 +69,7 @@ const index = () => {
             <p>Toko A</p>
           </div>
         </div>
-        <div className="w-[300px] drop-shadow-2xl">
+        <div className="w-[300px] shadow-2xl">
           <div>
             <img src={Image} width={300} alt="" />
           </div>
@@ -79,7 +79,7 @@ const index = () => {
             <p>Toko A</p>
           </div>
         </div>
-        <div className="w-[300px] drop-shadow-2xl">
+        <div className="w-[300px] shadow-2xl">
           <div>
             <img src={Image} width={300} alt="" />
           </div>
@@ -89,7 +89,7 @@ const index = () => {
             <p>Toko A</p>
           </div>
         </div>
-        <div className="w-[300px] drop-shadow-2xl">
+        <div className="w-[300px] shadow-2xl">
           <div>
             <img src={Image} width={300} alt="" />
           </div>

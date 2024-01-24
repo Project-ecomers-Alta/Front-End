@@ -1,11 +1,13 @@
-import Layout from "@/components/Layout"
 import Shoes from "../../assets/assics.jpg"
 import Photo from "../../assets/unnamed.jpg"
 import Pin from "../../assets/pin.png"
+import NavbarLogin from "@/components/Navbarlogin"
+import Footer from "@/components/Footer"
 
 const ProductDetail = () => {
   return (
-    <Layout>
+    <div>
+      <NavbarLogin />
       <div className="flex flex-col px-28 lg:flex-row ">
         <div className="w-full ps-10 ">
           <div>
@@ -54,7 +56,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-    </Layout>
+      <Footer />
+    </div>
   )
 }
 

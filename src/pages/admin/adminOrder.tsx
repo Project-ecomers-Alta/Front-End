@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import Person from "../../assets/person.png"
 import Order from "../../assets/order-history.png"
 import Logout from "../../assets/logout.png"
@@ -20,14 +21,66 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
+interface Order {
+  orderId: string
+  product: string
+  quantity: number
+  createdAt: string
+  payment: string
+  subTotal: string
+  address: string
+  status: string
+}
+
 function AdminOrder() {
+  const [orders, setUsers] = useState<Order[]>([])
+  const [searchQuery, setSearchQuery] = useState("")
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get<Order[]>(
+        "http://54.250.172.137:8080/users",
+        {
+          headers: {
+            Authorization: "Bearer []",
+          },
+        }
+      )
+
+      setUsers(response.data)
+    } catch (error) {
+      console.error("Error fetching data:", error)
+    }
+  }
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get<Order[]>(
+        `http://54.250.172.137:8080/users/search?query=${searchQuery}`,
+        {
+          headers: {
+            Authorization: "",
+          },
+        }
+      )
+
+      setUsers(response.data)
+    } catch (error) {
+      console.error("Error fetching search results:", error)
+    }
+  }
+
   return (
     <div className="bg-[#D9D9D9] w-screen h-max">
       <div className="bg-[#579BB1] text-black flex w-screen pt-4 pb-5 px-32 justify-between">
         <div className="bg-white p-2 text-[20px]">LOGO</div>
       </div>
       <div className="flex">
-        <div className="px-5 bg-[#579BB1] w-32">
+        <div className="px-5 bg-[#579BB1] w-32 h-screen">
           <div>
             <img className="w-[76px] h-[76px] mb-10" src={Person} alt="" />
             <img className="ps-2" src={Order} />
@@ -49,16 +102,26 @@ function AdminOrder() {
             </div>
             <div>
               <input
-                className="py-2 px-4 rounded-lg w-[500px]"
+                className="py-2 px-4 rounded-lg w-[400px] me-5"
                 type="search"
-                placeholder="Search"
+                placeholder="Cari"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
+              <button
+                className="bg-[#579BB1] py-2 px-6 rounded-xl text-white"
+                onClick={handleSearch}
+              >
+                SEARCH
+              </button>
             </div>
           </div>
 
+          <div className="font-bold text-[20px] py-4 px-4 bg-white text-[#6c757d]">
+            Orders
+          </div>
           <Table className="bg-white rounded-md">
             <TableHeader>
-              <TableHead className="text-[20px]">Orders</TableHead>
               <TableRow className="bg-[#F8F8F8]">
                 <TableHead className="w-[100px]">ORDER ID</TableHead>
                 <TableHead>PRODUCT</TableHead>
@@ -71,88 +134,18 @@ function AdminOrder() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell>INV/73621489</TableCell>
-                <TableCell>Asics Gel Kayano UK10</TableCell>
-                <TableCell className="">1</TableCell>
-                <TableCell className="">17-01-2024</TableCell>
-                <TableCell className="">BRI</TableCell>
-                <TableCell className="">£175.00</TableCell>
-                <TableCell className="">JAKARTA</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/73621489</TableCell>
-                <TableCell>Asics Gel Kayano UK8</TableCell>
-                <TableCell className="">1</TableCell>
-                <TableCell className="">17-01-2024</TableCell>
-                <TableCell className="">BRI</TableCell>
-                <TableCell className="">£175.00</TableCell>
-                <TableCell className="">JAKARTA</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>INV/93747341</TableCell>
-                <TableCell>Example</TableCell>
-                <TableCell className="">5</TableCell>
-                <TableCell className=""> 18-01-2024</TableCell>
-                <TableCell className="">BCA</TableCell>
-                <TableCell className="">£455.00</TableCell>
-                <TableCell className="">BALI</TableCell>
-                <TableCell className="">Delivered</TableCell>
-              </TableRow>
-
-              <TableRow></TableRow>
+              {orders.map((order) => (
+                <TableRow key={order.orderId}>
+                  <TableCell>{order.orderId}</TableCell>
+                  <TableCell>{order.product}</TableCell>
+                  <TableCell>{order.quantity}</TableCell>
+                  <TableCell>{order.createdAt}</TableCell>
+                  <TableCell>{order.payment}</TableCell>
+                  <TableCell>{order.subTotal}</TableCell>
+                  <TableCell>{order.address}</TableCell>
+                  <TableCell>{order.status}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <div className="bg-white p-5">

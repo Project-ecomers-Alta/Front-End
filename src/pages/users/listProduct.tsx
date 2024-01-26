@@ -15,21 +15,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ImagePlus, SquarePen, Trash2 } from "lucide-react";
 import Shoes from "../../assets/assics.jpg";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { IProductType, productSchema } from "@/utils/apis/products/types";
 
 const listProduct = () => {
   const [page, setPage] = useState<number>(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors, isSubmitSuccessful },
+  } = useForm<IProductType>({
+    resolver: zodResolver(productSchema),
+  });
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      close();
+    }
+  }, [isSubmitSuccessful]);
 
   return (
     <Layout>
@@ -43,65 +53,67 @@ const listProduct = () => {
             Add Product
           </DialogTrigger>
           {page === 0 ? (
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add Product</DialogTitle>
+            <form>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add Product</DialogTitle>
+                  <div>
+                    <div className="flex flex-row justify-end my-4">
+                      <Input placeholder="Category" {...register("category")} />
+                    </div>
+                    <div className="flex flex-row mb-4">
+                      <Input
+                        placeholder="Name Yout Listing"
+                        {...register("name")}
+                      />
+                    </div>
+                    <div className="mb-4">
+                      About the item
+                      <Textarea
+                        placeholder="Description..."
+                        {...register("description")}
+                      />
+                    </div>
+                    <div className="mb-4">
+                      Quantity
+                      <Input {...register("quantity")} />
+                    </div>
+                    <div className="mb-4">
+                      Price
+                      <Input {...register("price")} />
+                    </div>
+                  </div>
+                </DialogHeader>
                 <div>
-                  <div className="flex flex-row justify-end my-4">
-                    <Select>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="menShoes">Men Shoes</SelectItem>
-                        <SelectItem value="womenShoes">Women Shoes</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex flex-row mb-4">
-                    <Input placeholder="Name Yout Listing" />
-                  </div>
-                  <div className="mb-4">
-                    About the item
-                    <Textarea placeholder="Description..." />
-                  </div>
-                  <div className="mb-4">
-                    Quantity
-                    <Input />
-                  </div>
-                  <div className="mb-4">
-                    Price
-                    <Input />
-                  </div>
-                </div>
-              </DialogHeader>
-              <div>
-                <button
-                  onClick={() => setPage(1)}
-                  className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full mr-24 text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105"
-                >
-                  Next
-                </button>
-              </div>
-            </DialogContent>
-          ) : (
-            <DialogContent>
-              <DialogHeader>
-                <div className="flex justify-center mb-5">
-                  <div className="bg-gray-300 py-20 px-32 flex flex-col items-center">
-                    <ImagePlus color="#000000" className="mb-5" />
-                    <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
-                      Add Photo
-                    </button>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
-                    List Now
+                  <button
+                    onClick={() => setPage(1)}
+                    className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full mr-24 text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105"
+                  >
+                    Next
                   </button>
                 </div>
-              </DialogHeader>
-            </DialogContent>
+              </DialogContent>
+            </form>
+          ) : (
+            <form>
+              <DialogContent>
+                <DialogHeader>
+                  <div className="flex justify-center mb-5">
+                    <div className="bg-gray-300 py-20 px-32 flex flex-col items-center">
+                      <ImagePlus color="#000000" className="mb-5" />
+                      <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
+                        Add Photo
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
+                      List Now
+                    </button>
+                  </div>
+                </DialogHeader>
+              </DialogContent>
+            </form>
           )}
         </Dialog>
       </div>

@@ -1,6 +1,7 @@
 import { useToken } from "@/utils/context/token";
 import { SearchIcon, ShoppingCart } from "lucide-react";
 import User from "../assets/unnamed.jpg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const { token } = useToken();
@@ -35,7 +36,9 @@ function Navbar() {
         </div>
       ) : (
         <div className="flex">
-          <div className="bg-white py-2 px-4 rounded-md">Login/Register</div>
+          <Link to={"/login"}>
+            <div className="bg-white py-2 px-4 rounded-md">Login/Register</div>
+          </Link>
           <div className="bg-white py-2 px-4 rounded-xl mx-6">
             <ShoppingCart color="#000000" />
           </div>

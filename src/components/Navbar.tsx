@@ -1,6 +1,10 @@
+import { useToken } from "@/utils/context/token";
 import { SearchIcon, ShoppingCart } from "lucide-react";
+import User from "../assets/unnamed.jpg";
 
 function Navbar() {
+  const { token } = useToken();
+
   return (
     <div className="bg-[#579BB1] text-black flex py-6 px-28 justify-between">
       <div className="bg-white p-2 text-[20px]">LOGO</div>
@@ -16,12 +20,27 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="flex">
-        <div className="bg-white py-2 px-4 rounded-md">Login/Register</div>
-        <div className="bg-white py-2 px-4 rounded-xl mx-6">
-          <ShoppingCart color="#000000" />
+      {token ? (
+        <div className="flex">
+          <div className="bg-white py-2 px-4 rounded-xl mx-6">
+            <ShoppingCart color="#000000" />
+          </div>
+          <div>
+            <img
+              className="rounded-full w-12 h-12 items-center"
+              src={User}
+              onClick={() => localStorage.removeItem("token")}
+            />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex">
+          <div className="bg-white py-2 px-4 rounded-md">Login/Register</div>
+          <div className="bg-white py-2 px-4 rounded-xl mx-6">
+            <ShoppingCart color="#000000" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import NavbarLogin from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
-import Shoes from "../../assets/img.png";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import NavbarLogin from "@/components/Navbar"
+import Footer from "@/components/Footer"
+import { Input } from "@/components/ui/input"
+import Shoes from "../../assets/img.png"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 function OrderPage() {
   return (
@@ -110,7 +110,7 @@ function OrderPage() {
       </div>
       <Footer />
     </div>
-  );
+  )
 }
 
-export default OrderPage;
+export default OrderPage

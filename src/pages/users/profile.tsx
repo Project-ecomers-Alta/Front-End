@@ -1,9 +1,20 @@
-import Layout from "@/components/Layout";
-import { Input } from "@/components/ui/input";
-import { User, History, Store } from "lucide-react";
-import Image from "../../assets/unnamed.jpg";
+import Layout from "@/components/Layout"
+import { Input } from "@/components/ui/input"
+import { User, History, Store } from "lucide-react"
+import useRetrieveProfileUser from "@/hooks/useRetrieveProfileUser"
 
 const profile = () => {
+  const { data, isLoading, error } = useRetrieveProfileUser()
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
+
+  const user = data
+
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -53,19 +64,19 @@ const profile = () => {
         <div className="flex flex-col gap-8">
           <div className="flex flex-row">
             <div className="w-[300px]">Username</div>
-            <Input />
+            <Input value={user?.UserName} />
           </div>
           <div className="flex flex-row">
             <div className="w-[300px]">Domisili</div>
-            <Input />
+            <Input value={user?.Domicile} />
           </div>
           <div className="flex flex-row">
             <div className="w-[300px]">Email</div>
-            <Input />
+            <Input value={user?.Email} />
           </div>
           <div className="flex flex-row">
             <div className="w-[300px]">Phone Number</div>
-            <Input />
+            <Input value={user?.PhoneNumber} />
           </div>
           <div className="flex justify-end gap-4">
             <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
@@ -78,7 +89,12 @@ const profile = () => {
         </div>
         <div className="flex flex-col mr-40 gap-5">
           <div>
-            <img src={Image} className="rounded-full" width={160} alt="" />
+            <img
+              src={user?.Image}
+              className="rounded-full"
+              width={160}
+              alt=""
+            />
           </div>
           <button className="bg-gray-300 hover:bg-gray-300 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
             Select image
@@ -86,7 +102,7 @@ const profile = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default profile;
+export default profile

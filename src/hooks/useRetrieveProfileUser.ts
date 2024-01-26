@@ -2,20 +2,15 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 
 interface User {
-  id: number
-  full_name: string
-  user_name: string
-  email: string
-  role: string
-  created_at: string
+  UserName: string
+  Domicile: string
+  Email: string
+  PhoneNumber: number
+  Image: string
 }
 
-type Props = {
-  search?: string
-}
-
-const useRetrieveUsers = ({ search }: Props) => {
-  const [data, setData] = useState<User[] | null>(null)
+const useRetrieveProfileUser = () => {
+  const [data, setData] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -26,12 +21,9 @@ const useRetrieveUsers = ({ search }: Props) => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const response = await axios.get("http://54.250.172.137:8080/users", {
+        const response = await axios.get("http://54.250.172.137:8080/user", {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
-          params: {
-            search: search,
           },
         })
 
@@ -44,7 +36,7 @@ const useRetrieveUsers = ({ search }: Props) => {
     }
 
     fetchData()
-  }, [search])
+  }, [])
 
   return {
     data,
@@ -53,4 +45,4 @@ const useRetrieveUsers = ({ search }: Props) => {
   }
 }
 
-export default useRetrieveUsers
+export default useRetrieveProfileUser

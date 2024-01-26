@@ -1,21 +1,24 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 
-interface User {
+interface Order {
   id: number
-  full_name: string
-  user_name: string
-  email: string
-  role: string
+  order_id: number
+  product_name: string
+  quantity: number
   created_at: string
+  credit_card: string
+  sub_total: number
+  addres: string
+  status: string
 }
 
 type Props = {
-  search?: string
+  search?: string | number
 }
 
-const useRetrieveUsers = ({ search }: Props) => {
-  const [data, setData] = useState<User[] | null>(null)
+const useRetrieveOrders = ({ search }: Props) => {
+  const [data, setData] = useState<Order[] | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -53,4 +56,4 @@ const useRetrieveUsers = ({ search }: Props) => {
   }
 }
 
-export default useRetrieveUsers
+export default useRetrieveOrders

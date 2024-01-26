@@ -17,8 +17,27 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { getProduct } from "@/utils/apis/products/api";
+import { useEffect, useState } from "react";
+import { IProduct } from "@/utils/apis/products/types";
 
 const index = () => {
+  const [data, setData] = useState<IProduct[]>();
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
+  const fetchProduct = async () => {
+    try {
+      const result = await getProduct();
+      setData(result.data);
+      console.log(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout>
       <div className="flex justify-center my-4">
@@ -59,46 +78,18 @@ const index = () => {
         </p>
       </div>
       <div className="flex justify-center gap-10 mb-4">
-        <div className="w-[300px] shadow-2xl">
-          <div>
-            <img src={Image} width={300} alt="" />
+        {data?.map((item, index) => (
+          <div className="w-[300px] shadow-2xl" key={index}>
+            <div>
+              <img src={Image} width={300} alt="" />
+            </div>
+            <div className="bg-[#F8F4EA] p-4">
+              <p className="font-semibold">{item.product_name}</p>
+              <p className="text-[#DD611B] font-semibold">{item.price}</p>
+              <p>{item.user_info.nama_user}</p>
+            </div>
           </div>
-          <div className="bg-[#F8F4EA] p-4">
-            <p className="font-semibold">Asics Gel Kayano UK10</p>
-            <p className="text-[#DD611B] font-semibold">£175.00</p>
-            <p>Toko A</p>
-          </div>
-        </div>
-        <div className="w-[300px] shadow-2xl">
-          <div>
-            <img src={Image} width={300} alt="" />
-          </div>
-          <div className="bg-[#F8F4EA] p-4">
-            <p className="font-semibold">Asics Gel Kayano UK9.5</p>
-            <p className="text-[#DD611B] font-semibold">£175.00</p>
-            <p>Toko A</p>
-          </div>
-        </div>
-        <div className="w-[300px] shadow-2xl">
-          <div>
-            <img src={Image} width={300} alt="" />
-          </div>
-          <div className="bg-[#F8F4EA] p-4">
-            <p className="font-semibold">Asics Gel Kayano UK9</p>
-            <p className="text-[#DD611B] font-semibold">£175.00</p>
-            <p>Toko A</p>
-          </div>
-        </div>
-        <div className="w-[300px] shadow-2xl">
-          <div>
-            <img src={Image} width={300} alt="" />
-          </div>
-          <div className="bg-[#F8F4EA] p-4">
-            <p className="font-semibold">Asics Gel Kayano UK8</p>
-            <p className="text-[#DD611B] font-semibold">£175.00</p>
-            <p>Toko A</p>
-          </div>
-        </div>
+        ))}
       </div>
       <Pagination className="mb-4">
         <PaginationContent>

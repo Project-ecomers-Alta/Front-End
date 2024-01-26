@@ -12,9 +12,10 @@ const index = () => {
             join us now.
           </p>
           <div className="flex flex-col justify-center">
-            <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
+            <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl mb-4 transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
               Login / Register
             </button>
+            <button className="mr-auto underline">back</button>
           </div>
         </div>
         <div className="bg-cyan-200 min-h-screen w-full flex flex-col items-center justify-end">

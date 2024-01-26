@@ -10,8 +10,47 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  LoginType,
+  RegisterType,
+  loginSchema,
+  registerSchema,
+} from "@/utils/apis/auth/types";
+import { userLogin, userRegister } from "@/utils/apis/auth/api";
+import { useToken } from "@/utils/context/token";
 
 const register = () => {
+  const { changeToken } = useToken();
+
+  const { register, handleSubmit } = useForm<RegisterType>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const { register: login, handleSubmit: handleSubmit2 } = useForm<LoginType>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const handleRegister = async (body: RegisterType) => {
+    try {
+      const result = await userRegister(body);
+      alert(result.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogin = async (body: LoginType) => {
+    try {
+      const result = await userLogin(body);
+      console.log(result.data);
+      changeToken(result.data.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center h-screen font-poppins text-black">
       <div className="hidden md:flex flex-row items-center justify-center">
@@ -31,21 +70,27 @@ const register = () => {
                   Login to your existing account
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
-                  Login
-                </button>
-              </CardFooter>
+              <form onSubmit={handleSubmit2(handleLogin)}>
+                <CardContent className="space-y-2">
+                  <div className="space-y-1">
+                    <Label htmlFor="email">Email</Label>
+                    <Input {...login("email")} id="email" />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      {...login("password")}
+                      id="password"
+                      type="password"
+                    />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
+                    Login
+                  </button>
+                </CardFooter>
+              </form>
             </Card>
           </TabsContent>
           <TabsContent value="register">
@@ -56,29 +101,43 @@ const register = () => {
                   Don't have an account? Sign-up here!
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" type="username" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="domisili">Domisili</Label>
-                  <Input id="domisili" type="domisili" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
-                  Register
-                </button>
-              </CardFooter>
+              <form onSubmit={handleSubmit(handleRegister)}>
+                <CardContent className="space-y-2">
+                  <div className="space-y-1">
+                    <Label htmlFor="username">Username</Label>
+                    <Input
+                      {...register("user_name")}
+                      id="username"
+                      type="username"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="email">Email</Label>
+                    <Input {...register("email")} id="email" type="email" />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="domisili">Domisili</Label>
+                    <Input
+                      {...register("domicile")}
+                      id="domisili"
+                      type="domisili"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      {...register("password")}
+                      id="password"
+                      type="password"
+                    />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
+                    Register
+                  </button>
+                </CardFooter>
+              </form>
             </Card>
           </TabsContent>
         </Tabs>

@@ -1,8 +1,23 @@
 import Layout from "@/components/Layout";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "../../assets/assics.jpg";
+import { useState } from "react";
 
 const shoppingCart = () => {
+  const [counter, setCounter] = useState(0);
+
+  const handleIncrement = () => {
+    setCounter(counter + 1);
+  };
+
+  const handleDecrement = () => {
+    if (counter <= 0) {
+      return;
+    } else {
+      setCounter(counter - 1);
+    }
+  };
+
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -26,22 +41,29 @@ const shoppingCart = () => {
             <img src={Image} alt="" width={100} />
             <p className="text-2xl ml-6">Asics Gel Kayano UK10</p>
             <div className="flex gap-x-1 my-10 ml-[520px]">
-              <button className="p-3 bg-white shadow-md rounded-lg font-semibold">
-                +
+              <button
+                className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                onClick={handleDecrement}
+              >
+                -
               </button>
               <input
-                className="bg-white shadow-md rounded-lg w-[60px]"
+                className="bg-white shadow-md rounded-lg w-[60px] justify-center text-center"
                 type="text"
+                value={counter}
               />
-              <button className="p-3 bg-white shadow-md rounded-lg font-semibold">
-                -
+              <button
+                className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                onClick={handleIncrement}
+              >
+                +
               </button>
             </div>
             <p className="text-2xl ml-32">£175.00</p>
           </div>
         </div>
       </div>
-      <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
+      {/* <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
         <div>
           <div className="flex items-center mb-4">
             <Checkbox className="bg-gray-200 mr-4" />
@@ -52,21 +74,28 @@ const shoppingCart = () => {
             <img src={Image} alt="" width={100} />
             <p className="text-2xl ml-6">Asics Gel Kayano UK9.5</p>
             <div className="flex gap-x-1 my-10 ml-[520px]">
-              <button className="p-3 bg-white shadow-md rounded-lg font-semibold">
+              <button
+                className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                onClick={handleIncrement}
+              >
                 +
               </button>
               <input
-                className="bg-white shadow-md rounded-lg w-[60px]"
+                className="bg-white shadow-md rounded-lg w-[60px] justify-center text-center"
                 type="text"
+                value={counter}
               />
-              <button className="p-3 bg-white shadow-md rounded-lg font-semibold">
+              <button
+                className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                onClick={handleDecrement}
+              >
                 -
               </button>
             </div>
             <p className="text-2xl ml-32">£175.00</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </Layout>
   );
 };

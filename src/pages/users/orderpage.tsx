@@ -1,10 +1,9 @@
-import NavbarLogin from "@/components/Navbarlogin"
+import NavbarLogin from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Input } from "@/components/ui/input"
 import Shoes from "../../assets/img.png"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import React from "react"
 
 function OrderPage() {
   return (

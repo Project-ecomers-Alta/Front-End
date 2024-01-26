@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import NavbarLogin from "@/components/Navbarlogin";
+import NavbarLogin from "@/components/Navbar";
 
 function PaymentPage() {
   return (

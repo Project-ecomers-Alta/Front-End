@@ -1,6 +1,6 @@
 import Photo from "../../assets/unnamed.jpg"
 import Pin from "../../assets/pin.png"
-import NavbarLogin from "@/components/Navbarlogin"
+import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct"
 
@@ -8,7 +8,7 @@ function ProductDetail() {
   const { data } = useRetrieveDetailProduct()
   return (
     <div>
-      <NavbarLogin />
+      <Navbar />
       <div>
         <div className="flex flex-col px-28 lg:flex-row ">
           {data?.map((product) => (

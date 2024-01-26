@@ -86,7 +86,7 @@ const index = () => {
             <div className="bg-[#F8F4EA] p-4">
               <p className="font-semibold">{item.product_name}</p>
               <p className="text-[#DD611B] font-semibold">{item.price}</p>
-              <p>{item.user_info.nama_user}</p>
+              <p>{item.user.user_name}</p>
             </div>
           </div>
         ))}
@@ -98,15 +98,6 @@ const index = () => {
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">4</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />

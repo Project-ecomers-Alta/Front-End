@@ -18,6 +18,12 @@ const shoppingCart = () => {
     }
   };
 
+  // const [selectAll, setSelectAll] = useState(false);
+
+  // const handleSelectAll = () => {
+  //   setSelectAll(!selectAll);
+  // };
+
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -25,7 +31,11 @@ const shoppingCart = () => {
       </div>
       <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
         <div className="flex items-center">
-          <Checkbox className="bg-gray-200 mr-4" />
+          <Checkbox
+            className="bg-gray-200 mr-4"
+            // checked={selectAll}
+            // onChange={handleSelectAll}
+          />
           <p className="font-semibold">Select All</p>
         </div>
         <p className="text-cyan-600 font-semibold">Delete</p>
@@ -63,39 +73,6 @@ const shoppingCart = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
-        <div>
-          <div className="flex items-center mb-4">
-            <Checkbox className="bg-gray-200 mr-4" />
-            <p>Toko B</p>
-          </div>
-          <div className="flex items-center">
-            <Checkbox className="bg-gray-200 mr-4" />
-            <img src={Image} alt="" width={100} />
-            <p className="text-2xl ml-6">Asics Gel Kayano UK9.5</p>
-            <div className="flex gap-x-1 my-10 ml-[520px]">
-              <button
-                className="p-3 bg-white shadow-md rounded-lg font-semibold"
-                onClick={handleIncrement}
-              >
-                +
-              </button>
-              <input
-                className="bg-white shadow-md rounded-lg w-[60px] justify-center text-center"
-                type="text"
-                value={counter}
-              />
-              <button
-                className="p-3 bg-white shadow-md rounded-lg font-semibold"
-                onClick={handleDecrement}
-              >
-                -
-              </button>
-            </div>
-            <p className="text-2xl ml-32">£175.00</p>
-          </div>
-        </div>
-      </div> */}
     </Layout>
   );
 };

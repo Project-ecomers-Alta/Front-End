@@ -1,24 +1,25 @@
-import Pin from "../../assets/pin.png"
-import Footer from "@/components/Footer"
-import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct"
-import Navbar from "@/components/Navbar"
+import Pin from "../../assets/pin.png";
+import Footer from "@/components/Footer";
+import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct";
+import Navbar from "@/components/Navbar";
+import Image from "../../assets/assics.jpg";
 
 function ProductDetail() {
-  const { data, isLoading, error } = useRetrieveDetailProduct(1)
+  const { data, isLoading, error } = useRetrieveDetailProduct(1);
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {error}</div>;
   }
 
   if (!data) {
-    return <div>No data available</div>
+    return <div>No data available</div>;
   }
 
-  const product = data
+  const product = data;
 
   return (
     <div>
@@ -28,6 +29,7 @@ function ProductDetail() {
           <div key={product.id}>
             <div className="w-full ps-10 ">
               <div>{product.details_images}</div>
+              <img src={Image} width={300} alt="" />
             </div>
             <div className="text-[40px] font-normal">{product.name}</div>
             <div className="text-[36px] font-normal pb-4">{product.price}</div>
@@ -69,7 +71,7 @@ function ProductDetail() {
       </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default ProductDetail
+export default ProductDetail;

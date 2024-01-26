@@ -10,9 +10,9 @@ export interface IProduct {
     product_id: number;
     images: string;
   }[];
-  user_info: {
+  user: {
     user_id: number;
-    nama_user: string;
+    user_name: string;
     tag_line: string;
     email: string;
     province: string;

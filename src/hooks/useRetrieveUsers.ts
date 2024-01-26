@@ -20,7 +20,7 @@ const useRetrieveUsers = ({ search }: Props) => {
   const [error, setError] = useState<string | null>(null)
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDYxOTQ1NTIsInVzZXJJZCI6MX0.wkRnMdOIYZIOFhJqln0d9W0e7fCDSK8nMhQ0ciOTh_g"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDYyNTU2NDUsInVzZXJJZCI6MX0.RBiLD4o4euBxpxxwy21JO8ANkhRJY9TdsXDvxcGHsD0"
 
   useEffect(() => {
     const fetchData = async () => {

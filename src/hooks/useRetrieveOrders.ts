@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { useToken } from "@/utils/context/token"
 
 interface Order {
   id: number
@@ -18,18 +19,16 @@ type Props = {
 }
 
 const useRetrieveOrders = ({ search }: Props) => {
+  const { token } = useToken()
   const [data, setData] = useState<Order[] | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDYxOTQ1NTIsInVzZXJJZCI6MX0.wkRnMdOIYZIOFhJqln0d9W0e7fCDSK8nMhQ0ciOTh_g"
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const response = await axios.get("http://54.250.172.137:8080/users", {
+        const response = await axios.get("https://be20.online/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -47,7 +46,7 @@ const useRetrieveOrders = ({ search }: Props) => {
     }
 
     fetchData()
-  }, [search])
+  }, [search, token])
 
   return {
     data,

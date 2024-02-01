@@ -8,114 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ImagePlus, SquarePen, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import Shoes from "../../assets/assics.jpg";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { IProductType, productSchema } from "@/utils/apis/products/types";
 
 const listProduct = () => {
-  const [page, setPage] = useState<number>(0);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors, isSubmitSuccessful },
-  } = useForm<IProductType>({
-    resolver: zodResolver(productSchema),
-  });
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      close();
-    }
-  }, [isSubmitSuccessful]);
-
   return (
     <Layout>
       <div className="flex justify-between ml-24 my-10">
         <p className="text-cyan-600 text-4xl font-semibold">List My Product</p>
-        <Dialog>
-          <DialogTrigger
-            onClick={() => setPage(0)}
-            className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full mr-24 text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105"
-          >
-            Add Product
-          </DialogTrigger>
-          {page === 0 ? (
-            <form>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Add Product</DialogTitle>
-                  <div>
-                    <div className="flex flex-row justify-end my-4">
-                      <Input placeholder="Category" {...register("category")} />
-                    </div>
-                    <div className="flex flex-row mb-4">
-                      <Input
-                        placeholder="Name Yout Listing"
-                        {...register("name")}
-                      />
-                    </div>
-                    <div className="mb-4">
-                      About the item
-                      <Textarea
-                        placeholder="Description..."
-                        {...register("description")}
-                      />
-                    </div>
-                    <div className="mb-4">
-                      Quantity
-                      <Input {...register("quantity")} />
-                    </div>
-                    <div className="mb-4">
-                      Price
-                      <Input {...register("price")} />
-                    </div>
-                  </div>
-                </DialogHeader>
-                <div>
-                  <button
-                    onClick={() => setPage(1)}
-                    className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full mr-24 text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105"
-                  >
-                    Next
-                  </button>
-                </div>
-              </DialogContent>
-            </form>
-          ) : (
-            <form>
-              <DialogContent>
-                <DialogHeader>
-                  <div className="flex justify-center mb-5">
-                    <div className="bg-gray-300 py-20 px-32 flex flex-col items-center">
-                      <ImagePlus color="#000000" className="mb-5" />
-                      <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
-                        Add Photo
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
-                      List Now
-                    </button>
-                  </div>
-                </DialogHeader>
-              </DialogContent>
-            </form>
-          )}
-        </Dialog>
+
+        <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-80 rounded-full mr-24 text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
+          Add Product
+        </button>
       </div>
       <div className="mx-24">
         <Table>

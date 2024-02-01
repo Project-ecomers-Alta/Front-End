@@ -1,19 +1,19 @@
-import Layout from "@/components/Layout"
-import { Input } from "@/components/ui/input"
-import { User, History, Store } from "lucide-react"
-import useRetrieveProfileUser from "@/hooks/useRetrieveProfileUser"
+import Layout from "@/components/Layout";
+import { Input } from "@/components/ui/input";
+import { User, History, Store } from "lucide-react";
+import useRetrieveProfileUser from "@/hooks/useRetrieveProfileUser";
 
 const profile = () => {
-  const { data, isLoading, error } = useRetrieveProfileUser()
+  const { data, isLoading, error } = useRetrieveProfileUser();
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {error}</div>;
   }
 
-  const user = data
+  const user = data;
 
   return (
     <Layout>
@@ -102,7 +102,7 @@ const profile = () => {
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default profile
+export default profile;

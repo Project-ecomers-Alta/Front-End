@@ -1,78 +1,139 @@
 import Layout from "@/components/Layout";
-import { Checkbox } from "@/components/ui/checkbox";
 import Image from "../../assets/assics.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axiosWithConfig from "@/utils/apis/axiosWithConfig";
+import { formattedAmount } from "@/utils/formattedAmount";
+import { useCart } from "@/utils/context/cartContext";
 
 const shoppingCart = () => {
-  const [counter, setCounter] = useState(0);
+  const { changeCart } = useCart();
+  const [cart, setCart] = useState<[] | any>([]);
 
-  const handleIncrement = () => {
-    setCounter(counter + 1);
+  function getCart() {
+    axiosWithConfig
+      .get("/carts")
+      .then((res) => {
+        setCart(res.data.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const handleDecrement = (cart_id: number) => {
+    cart.map((item: any) => {
+      if (item.id == cart_id) {
+        if (item.quantity == 1) {
+          const quantity = item.quantity - 0;
+          updateCartQuantity(cart_id, quantity);
+        } else {
+          const quantity = item.quantity - 1;
+          updateCartQuantity(cart_id, quantity);
+        }
+      }
+    });
   };
 
-  const handleDecrement = () => {
-    if (counter <= 0) {
-      return;
-    } else {
-      setCounter(counter - 1);
-    }
+  const handleIncrement = (cart_id: number) => {
+    cart.map((item: any) => {
+      if (item.id == cart_id) {
+        const quantity = item.quantity + 1;
+        if (quantity <= item.Products.stock) {
+          updateCartQuantity(cart_id, quantity);
+        }
+      }
+    });
   };
 
-  // const [selectAll, setSelectAll] = useState(false);
+  const totalPrice: number[] =
+    cart &&
+    cart.map((item: any) => {
+      return item.Products.price * item.quantity;
+    });
 
-  // const handleSelectAll = () => {
-  //   setSelectAll(!selectAll);
-  // };
+  const sumTotal: number =
+    totalPrice &&
+    totalPrice.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+  function updateCartQuantity(id: number, quantity: number) {
+    axiosWithConfig
+      .put(`/carts/${id}`, {
+        quantity: quantity,
+      })
+      .then((res) => {
+        getCart();
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  function deleteCartHandle(id: number) {
+    axiosWithConfig
+      .delete(`/carts/${id}`)
+      .then((res) => {
+        console.log(res);
+        changeCart();
+      })
+      .catch((error) => console.log(error));
+  }
 
   return (
     <Layout>
       <div className="ml-24 my-10">
         <p className="text-4xl font-semibold text-cyan-600">Shopping Cart</p>
       </div>
-      <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
-        <div className="flex items-center">
-          <Checkbox
-            className="bg-gray-200 mr-4"
-            // checked={selectAll}
-            // onChange={handleSelectAll}
-          />
-          <p className="font-semibold">Select All</p>
-        </div>
-        <p className="text-cyan-600 font-semibold">Delete</p>
-      </div>
-      <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
-        <div>
-          <div className="flex items-center mb-4">
-            <Checkbox className="bg-gray-200 mr-4" />
-            <p>Toko A</p>
-          </div>
-          <div className="flex items-center">
-            <Checkbox className="bg-gray-200 mr-4" />
-            <img src={Image} alt="" width={100} />
-            <p className="text-2xl ml-6">Asics Gel Kayano UK10</p>
-            <div className="flex gap-x-1 my-10 ml-[520px]">
-              <button
-                className="p-3 bg-white shadow-md rounded-lg font-semibold"
-                onClick={handleDecrement}
-              >
-                -
-              </button>
-              <input
-                className="bg-white shadow-md rounded-lg w-[60px] justify-center text-center"
-                type="text"
-                value={counter}
-              />
-              <button
-                className="p-3 bg-white shadow-md rounded-lg font-semibold"
-                onClick={handleIncrement}
-              >
-                +
-              </button>
+      {/* <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
+        
+        <button onClick={() => deleteCartHandle(items.id)} className="text-cyan-600 font-semibold">Delete</button>
+      </div> */}
+      {cart &&
+        cart.map((items: any, index: number) => {
+          return (
+            <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
+              <div key={index}>
+                <div className="flex items-center mb-4">
+                  <p>Toko A</p>
+                </div>
+                <div className="flex items-center">
+                  <img src={Image} alt="" width={100} />
+                  <p className="text-2xl ml-6">Asics Gel Kayano UK10</p>
+                  <div className="flex gap-x-1 my-10 ml-[520px]">
+                    <button
+                      className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                      onClick={() => handleDecrement(items.id)}
+                    >
+                      -
+                    </button>
+                    <div className="w-8 h-8 flex justify-center items-center">
+                      {items.quantity}
+                    </div>
+                    <button
+                      className="p-3 bg-white shadow-md rounded-lg font-semibold"
+                      onClick={() => handleIncrement(items.id)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <div className="flex justify-between mb-6">
+                    <p>Total:</p>
+                    <p>{formattedAmount(sumTotal || 0)}</p>
+                  </div>
+                  <button
+                    onClick={() => deleteCartHandle(items.id)}
+                    className="text-cyan-600 font-semibold"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
-            <p className="text-2xl ml-32">£175.00</p>
-          </div>
-        </div>
-      </div>
+          );
+        })}
     </Layout>
   );
 };

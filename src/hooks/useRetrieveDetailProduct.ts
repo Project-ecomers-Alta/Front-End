@@ -1,49 +1,50 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 interface Product {
-  id: number
-  name: string
-  price: number
-  category: string
-  description: string
-  details_images: string
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  description: string;
+  details_images: string;
+  quantity: number;
   user: {
-    user_name: string
-    provinci: string
-    shop_image: string
-  }
+    user_name: string;
+    provinci: string;
+    shop_image: string;
+  };
 }
 
 const useRetrieveDetailProduct = (id: number) => {
-  const [data, setData] = useState<Product | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+  const [data, setData] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const response = await axios.get(
           `http://54.250.172.137:8080/product/${id}`
-        )
+        );
 
-        setData(response.data.data)
+        setData(response.data.data);
       } catch (error) {
-        setError(`Error fetching data: ${error}`)
+        setError(`Error fetching data: ${error}`);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchData()
-  }, [id])
+    fetchData();
+  }, [id]);
 
   return {
     data,
     isLoading,
     error,
-  }
-}
+  };
+};
 
-export default useRetrieveDetailProduct
+export default useRetrieveDetailProduct;

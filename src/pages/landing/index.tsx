@@ -20,6 +20,7 @@ import {
 import { getProduct } from "@/utils/apis/products/api";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/utils/apis/products/types";
+import { Link } from "react-router-dom";
 
 const index = () => {
   const [data, setData] = useState<IProduct[]>();
@@ -77,15 +78,17 @@ const index = () => {
           Grab the Best Deal!
         </p>
       </div>
-      <div className="flex justify-center gap-10 mb-4">
+      <div className="flex flex-wrap justify-center gap-10 mb-4">
         {data?.map((item, index) => (
           <div className="w-[300px] shadow-2xl" key={index}>
-            <div>
-              <img src={Image} width={300} alt="" />
-            </div>
+            <Link to={`/product-detail/${item.id}`}>
+              <div>
+                <img src={Image} width={300} alt="" />
+              </div>
+            </Link>
             <div className="bg-[#F8F4EA] p-4">
               <p className="font-semibold">{item.product_name}</p>
-              <p className="text-[#DD611B] font-semibold">{item.price}</p>
+              <p className="text-[#DD611B] font-semibold">Rp.{item.price}</p>
               <p>{item.user.user_name}</p>
             </div>
           </div>

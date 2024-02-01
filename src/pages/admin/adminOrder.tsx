@@ -35,7 +35,7 @@ function AdminOrder() {
       </div>
       <div className="flex flex-wrap">
         <div className="flex">
-          <div className="px-5 bg-[#579BB1] w-32 h-screen">
+          <div className="px-5 bg-[#579BB1] w-32 max-h-max">
             <div>
               <img className="w-[76px] h-[76px] mb-10" src={Person} alt="" />
               <img className="ps-2" src={Order} />

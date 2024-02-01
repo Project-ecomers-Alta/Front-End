@@ -3,9 +3,21 @@ import { Input } from "@/components/ui/input";
 import { User, History, Store } from "lucide-react";
 import Image from "../../assets/unnamed.jpg";
 import { Textarea } from "@/components/ui/textarea";
+import useRetrieveShop from "@/hooks/useRetrieveShop";
 import { Link } from "react-router-dom";
 
-const shopProfile = () => {
+const shopProfile: React.FC = () => {
+  const { data, isLoading, error } = useRetrieveShop();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const user = data;
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -65,36 +77,36 @@ const shopProfile = () => {
           <div className="flex gap-2">
             <div>
               <div className="w-[250px]">Shop Name</div>
-              <Input />
+              <Input value={user?.ShopName} />
             </div>
             <div className="ml-auto">
               <div className="w-[250px]">Tag Line</div>
-              <Input />
+              <Input value={user?.Tagline} />
             </div>
           </div>
           <div className="flex gap-2">
             <div>
               <div>
                 <div className="w-[170px]">Province</div>
-                <Input />
+                <Input value={user?.Province} />
               </div>
             </div>
             <div>
               <div>
                 <div className="w-[170px]">City</div>
-                <Input />
+                <Input value={user?.City} />
               </div>
             </div>
             <div>
               <div>
                 <div className="w-[170px]">Subdistrict</div>
-                <Input />
+                <Input value={user?.Subdistrict} />
               </div>
             </div>
           </div>
           <div>
             Address
-            <Textarea />
+            <Textarea value={user?.Address} />
           </div>
           <div className="flex justify-end gap-4">
             <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">

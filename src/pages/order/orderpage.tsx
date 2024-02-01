@@ -1,11 +1,30 @@
-import NavbarLogin from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import { Input } from "@/components/ui/input"
-import Shoes from "../../assets/img.png"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import NavbarLogin from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {  ProductCart } from "@/utils/apis/products/types";
+import { getCart } from "@/utils/apis/products/api";
 
 function OrderPage() {
+  const navigate = useNavigate();
+  const [cart, setCart] = useState<ProductCart[]>([]);
+
+  const fetchCart = async () => {
+    try {
+      const response = await getCart();
+      setCart(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
   return (
     <div>
       <NavbarLogin />
@@ -58,39 +77,30 @@ function OrderPage() {
           </div>
         </div>
         <div className="text-[#579BB1] font-bold text-[20px] py-7">Summary</div>
-        <div className="border-2 border-[#D9D9D9] p-8 mb-8">
-          <div className="flex items-center">
-            <div>
-              <img
-                className="w-[227px] h-[105px] border border-[#D9D9D9]"
-                src={Shoes}
-              />
-            </div>
-            <div className="ps-6">
-              <div>PRODUCT NAME</div>
-              <div>£175.00</div>
-            </div>
-          </div>
-          <div className="flex py-6 items-center">
-            <div>
-              <img
-                className="w-[227px] h-[105px] border border-[#D9D9D9]"
-                src={Shoes}
-              />
-            </div>
-            <div className="ps-6">
-              <div>PRODUCT NAME</div>
-              <div>£175.00</div>
-            </div>
-          </div>
-          <div>
-            <hr className="border-1 border-[#D9D9D9]" />
-          </div>
-          <div className="flex justify-between py-4">
-            <div>TOTAL</div>
-            <div>£350.00</div>
-          </div>
-        </div>
+        <table className="hidden md:table min-w-full border-2 p-6 border-[#D9D9D9] rounded-sm shadow-md text-left">
+          <tbody className="">
+            {cart &&
+              cart.map((item, index) => (
+                <tr key={index}>
+                  <th className="py-12 px-4 font-normal max-w-40">
+                    <div className="flex items-center ">
+                      <img
+                        className="w-20 h-20 mr-2 rounded-sm"
+                        src=""
+                        alt="Product Image"
+                      />
+                      <span className="font-semibold pl-2">
+                        {item.product.name}
+                      </span>
+                    </div>
+                  </th>
+                  <th className="py-12 px-4 font-normal"></th>
+                  <th className="py-12 px-4 font-normal">{item.quantity}</th>
+                  <th className="py-12 px-4 text-right pr-12 font-semibold"></th>
+                </tr>
+              ))}
+          </tbody>
+        </table>
         <div className="flex justify-between border-2 border-[#D9D9D9] px-6 py-4 mb-8 text-[#D9D9D9] font-semibold">
           <div>Shop Vouchers</div>
           <div>Select Voucher</div>
@@ -110,7 +120,7 @@ function OrderPage() {
       </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default OrderPage
+export default OrderPage;

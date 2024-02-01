@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import axiosWithConfig from "@/utils/apis/axiosWithConfig";
 import { formattedAmount } from "@/utils/formattedAmount";
 import { useCart } from "@/utils/context/cartContext";
+import { Link } from "react-router-dom";
+import { ProductCart } from "@/utils/apis/products/types";
 
 const shoppingCart = () => {
   const { changeCart } = useCart();
-  const [cart, setCart] = useState<[] | any>([]);
+  const [cart, setCart] = useState<ProductCart[] | any>([]);
 
   function getCart() {
     axiosWithConfig
-      .get("/carts")
+      .get("cart")
       .then((res) => {
         setCart(res.data.data);
         console.log(res.data);
@@ -51,7 +53,7 @@ const shoppingCart = () => {
   const totalPrice: number[] =
     cart &&
     cart.map((item: any) => {
-      return item.Products.price * item.quantity;
+      return item.product.price * item.quantity;
     });
 
   const sumTotal: number =
@@ -62,7 +64,7 @@ const shoppingCart = () => {
     );
   function updateCartQuantity(id: number, quantity: number) {
     axiosWithConfig
-      .put(`/carts/${id}`, {
+      .put(`cart/${id}`, {
         quantity: quantity,
       })
       .then((res) => {
@@ -74,7 +76,7 @@ const shoppingCart = () => {
 
   function deleteCartHandle(id: number) {
     axiosWithConfig
-      .delete(`/carts/${id}`)
+      .delete(`cart/${id}`)
       .then((res) => {
         console.log(res);
         changeCart();
@@ -87,21 +89,17 @@ const shoppingCart = () => {
       <div className="ml-24 my-10">
         <p className="text-4xl font-semibold text-cyan-600">Shopping Cart</p>
       </div>
-      {/* <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
-        
-        <button onClick={() => deleteCartHandle(items.id)} className="text-cyan-600 font-semibold">Delete</button>
-      </div> */}
-      {cart &&
-        cart.map((items: any, index: number) => {
-          return (
-            <div className="flex justify-between mx-32 mb-4 bg-[#F8F4EA] rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
+      <div className="flex flex-col justify-between mx-32 mb-4 bg-[#F8F4EA] border-2 rounded-tl-xl rounded-tr-xl py-5 px-14 shadow-xl">
+        {cart &&
+          cart.map((items: any, index: number) => {
+            return (
               <div key={index}>
                 <div className="flex items-center mb-4">
-                  <p>Toko A</p>
+                  <p>{items.user_name}</p>
                 </div>
-                <div className="flex items-center">
+                <div className="flex justify-between items-center">
                   <img src={Image} alt="" width={100} />
-                  <p className="text-2xl ml-6">Asics Gel Kayano UK10</p>
+                  <p className="text-2xl ml-6">{items.product.name}</p>
                   <div className="flex gap-x-1 my-10 ml-[520px]">
                     <button
                       className="p-3 bg-white shadow-md rounded-lg font-semibold"
@@ -131,9 +129,12 @@ const shoppingCart = () => {
                   </button>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-40 rounded-full text-xl transition duration-300 ease-in-out transform text-white hover:text-black hover:scale-105">
+          Checkout
+        </button>
+      </div>
     </Layout>
   );
 };

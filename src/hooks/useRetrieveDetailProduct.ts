@@ -25,9 +25,7 @@ const useRetrieveDetailProduct = (id: number) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          `http://54.250.172.137:8080/product/${id}`
-        );
+        const response = await axios.get(`https://be20.online/product/${id}`);
 
         setData(response.data.data);
       } catch (error) {

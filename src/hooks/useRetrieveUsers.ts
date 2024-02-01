@@ -1,5 +1,6 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios from "axios"
+import { useState, useEffect } from "react"
+import { useToken } from "@/utils/context/token"
 
 interface User {
   id: number;
@@ -15,18 +16,16 @@ type Props = {
 };
 
 const useRetrieveUsers = ({ search }: Props) => {
-  const [data, setData] = useState<User[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3MDYyNzA5NDUsInVzZXJJZCI6MX0.z7mfZTF_iiBqUmvAJnqTjD9qgoLS4xdsUZ7_V_NU7Oc";
+  const { token } = useToken()
+  const [data, setData] = useState<User[] | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
-        const response = await axios.get("http://54.250.172.137:8080/users", {
+        setIsLoading(true)
+        const response = await axios.get("https://be20.online/users", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,8 +42,8 @@ const useRetrieveUsers = ({ search }: Props) => {
       }
     };
 
-    fetchData();
-  }, [search]);
+    fetchData()
+  }, [search, token])
 
   return {
     data,

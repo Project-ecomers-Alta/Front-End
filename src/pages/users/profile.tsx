@@ -1,10 +1,17 @@
-import Layout from "@/components/Layout";
-import { Input } from "@/components/ui/input";
-import { User, History, Store } from "lucide-react";
-import useRetrieveProfileUser from "@/hooks/useRetrieveProfileUser";
+import Layout from "@/components/Layout"
+import { User, History, Store } from "lucide-react"
+import useRetrieveProfileUser from "@/hooks/useRetrieveProfileUser"
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
 
-const profile = () => {
-  const { data, isLoading, error } = useRetrieveProfileUser();
+const Profile: React.FC = () => {
+  const { data, isLoading, error } = useRetrieveProfileUser()
+
+  const [username, setUsername] = useState(data?.UserName || "")
+  const [domicile, setDomicile] = useState(data?.Domicile || "")
+  const [email, setEmail] = useState(data?.Email || "")
+  const [phoneNumber, setPhoneNumber] = useState(data?.PhoneNumber || "")
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -64,19 +71,28 @@ const profile = () => {
         <div className="flex flex-col gap-8">
           <div className="flex flex-row">
             <div className="w-[300px]">Username</div>
-            <Input value={user?.UserName} />
+            <Input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div className="flex flex-row">
-            <div className="w-[300px]">Domisili</div>
-            <Input value={user?.Domicile} />
+            <div className="w-[300px]">Domicile</div>
+            <Input
+              value={domicile}
+              onChange={(e) => setDomicile(e.target.value)}
+            />
           </div>
           <div className="flex flex-row">
             <div className="w-[300px]">Email</div>
-            <Input value={user?.Email} />
+            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="flex flex-row">
             <div className="w-[300px]">Phone Number</div>
-            <Input value={user?.PhoneNumber} />
+            <Input
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
           </div>
           <div className="flex justify-end gap-4">
             <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
@@ -105,4 +121,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile

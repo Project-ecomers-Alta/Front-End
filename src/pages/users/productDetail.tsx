@@ -31,9 +31,6 @@ function ProductDetail() {
               <img src={Image} width={400} alt="" />
               <div>{product.details_images}</div>
               <div className="flex">
-                <img src={Image} width={100} alt="" />
-                <img src={Image} width={100} alt="" />
-                <img src={Image} width={100} alt="" />
                 <div>{product.details_images}</div>
                 <div>{product.details_images}</div>
                 <div>{product.details_images}</div>
@@ -52,7 +49,6 @@ function ProductDetail() {
                   Add to Cart
                 </button>
               </div>
-              <div>Stock: {product.quantity}</div>
               <div className="text-[20px] font-medium pb-2">Description</div>
               <div className="text-[16px] font-normal">
                 {product.description}

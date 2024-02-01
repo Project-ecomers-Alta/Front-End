@@ -1,24 +1,25 @@
-import Pin from "../../assets/pin.png"
-import Footer from "@/components/Footer"
-import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct"
-import Navbar from "@/components/Navbar"
+import Pin from "../../assets/pin.png";
+import Footer from "@/components/Footer";
+import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct";
+import Navbar from "@/components/Navbar";
+import Image from "../../assets/assics.jpg";
 
 function ProductDetail() {
-  const { data, isLoading, error } = useRetrieveDetailProduct(1)
+  const { data, isLoading, error } = useRetrieveDetailProduct(1);
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {error}</div>;
   }
 
   if (!data) {
-    return <div>No data available</div>
+    return <div>No data available</div>;
   }
 
-  const product = data
+  const product = data;
 
   return (
     <div>
@@ -27,6 +28,7 @@ function ProductDetail() {
         <div className="flex flex-col px-28 lg:flex-row ">
           <div className="flex" key={product.id}>
             <div className="w-full ps-10 ">
+              <img src={Image} width={400} alt="" />
               <div>{product.details_images}</div>
               <div className="flex">
                 <div>{product.details_images}</div>
@@ -37,7 +39,7 @@ function ProductDetail() {
             <div>
               <div className="text-[40px] font-normal">{product.name}</div>
               <div className="text-[36px] font-normal pb-4">
-                {product.price}
+                Rp. {product.price}
               </div>
               <div className="text-[20px] font-light pb-2">
                 {product.category}
@@ -80,7 +82,7 @@ function ProductDetail() {
       </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default ProductDetail
+export default ProductDetail;

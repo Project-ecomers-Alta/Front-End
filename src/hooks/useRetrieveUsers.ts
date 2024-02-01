@@ -3,17 +3,17 @@ import { useState, useEffect } from "react"
 import { useToken } from "@/utils/context/token"
 
 interface User {
-  id: number
-  full_name: string
-  user_name: string
-  email: string
-  role: string
-  created_at: string
+  id: number;
+  full_name: string;
+  user_name: string;
+  email: string;
+  role: string;
+  created_at: string;
 }
 
 type Props = {
-  search?: string
-}
+  search?: string;
+};
 
 const useRetrieveUsers = ({ search }: Props) => {
   const { token } = useToken()
@@ -32,15 +32,15 @@ const useRetrieveUsers = ({ search }: Props) => {
           params: {
             search: search,
           },
-        })
+        });
 
-        setData(response.data.data)
+        setData(response.data.data);
       } catch (error) {
-        setError(`Error fetching data: ${error}`)
+        setError(`Error fetching data: ${error}`);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
     fetchData()
   }, [search, token])
@@ -49,7 +49,7 @@ const useRetrieveUsers = ({ search }: Props) => {
     data,
     isLoading,
     error,
-  }
-}
+  };
+};
 
-export default useRetrieveUsers
+export default useRetrieveUsers;

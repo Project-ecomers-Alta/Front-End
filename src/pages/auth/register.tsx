@@ -20,6 +20,7 @@ import {
 } from "@/utils/apis/auth/types";
 import { userLogin, userRegister } from "@/utils/apis/auth/api";
 import { useToken } from "@/utils/context/token";
+import { useNavigate } from "react-router-dom";
 
 const register = () => {
   const { changeToken } = useToken();
@@ -41,11 +42,14 @@ const register = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleLogin = async (body: LoginType) => {
     try {
       const result = await userLogin(body);
       console.log(result.data);
       changeToken(result.data.token);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

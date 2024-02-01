@@ -1,22 +1,23 @@
-import Layout from "@/components/Layout"
-import { Input } from "@/components/ui/input"
-import { User, History, Store } from "lucide-react"
-import Image from "../../assets/unnamed.jpg"
-import { Textarea } from "@/components/ui/textarea"
-import useRetrieveShop from "@/hooks/useRetrieveShop"
+import Layout from "@/components/Layout";
+import { Input } from "@/components/ui/input";
+import { User, History, Store } from "lucide-react";
+import Image from "../../assets/unnamed.jpg";
+import { Textarea } from "@/components/ui/textarea";
+import useRetrieveShop from "@/hooks/useRetrieveShop";
+import { Link } from "react-router-dom";
 
 const shopProfile: React.FC = () => {
-  const { data, isLoading, error } = useRetrieveShop()
+  const { data, isLoading, error } = useRetrieveShop();
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {error}</div>;
   }
 
-  const user = data
+  const user = data;
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -35,8 +36,12 @@ const shopProfile: React.FC = () => {
             </div>
             <div className="flex flex-col pr-4">
               <div>My Account</div>
-              <div>Profile</div>
-              <div>Change Password</div>
+              <Link to={"/profile"}>
+                <div>Profile</div>
+              </Link>
+              <Link to={"/change-password"}>
+                <div>Change Password</div>
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-4 bg-gray-300 py-2 m-4 rounded-lg">
@@ -47,7 +52,9 @@ const shopProfile: React.FC = () => {
                 className="bg-cyan-600 item-center rounded-full py-2 ml-4"
               />
             </div>
-            <div>My Purchase</div>
+            <Link to={"/history-order"}>
+              <div>My Purchase</div>
+            </Link>
           </div>
           <div className="flex items-center gap-4 bg-cyan-600 py-2 m-4 rounded-lg">
             <div>
@@ -59,7 +66,9 @@ const shopProfile: React.FC = () => {
             </div>
             <div className="flex flex-col">
               <div className="text-white font-semibold">Shop Profile</div>
-              <div>My Product</div>
+              <Link to={"/list-product"}>
+                <div>My Product</div>
+              </Link>
             </div>
           </div>
         </div>
@@ -115,7 +124,7 @@ const shopProfile: React.FC = () => {
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default shopProfile
+export default shopProfile;

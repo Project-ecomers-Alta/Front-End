@@ -3,9 +3,11 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
+import axiosWithConfig, { setAxiosConfig } from "../apis/axiosWithConfig";
 
 interface Props {
   children: ReactNode;
@@ -26,6 +28,21 @@ const TokenContext = createContext<Context>(contextValue);
 export function TokenProvider({ children }: Readonly<Props>) {
   const [token, setToken] = useState<string>(
     localStorage.getItem("token") ?? ""
+  );
+
+  useEffect(() => {
+    setAxiosConfig(token);
+  }, [token]);
+
+  axiosWithConfig.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response.status === 401) {
+        changeToken("");
+      }
+
+      return Promise.reject(error);
+    },
   );
 
   const changeToken = useCallback(

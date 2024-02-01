@@ -13,14 +13,14 @@ const Profile: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState(data?.PhoneNumber || "")
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {error}</div>;
   }
 
-  const user = data
+  const user = data;
 
   return (
     <Layout>
@@ -118,7 +118,7 @@ const Profile: React.FC = () => {
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default Profile

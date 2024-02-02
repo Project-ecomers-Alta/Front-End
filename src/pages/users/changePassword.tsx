@@ -1,7 +1,7 @@
-import Layout from "@/components/Layout";
-import { Input } from "@/components/ui/input";
-import { User, History, Store } from "lucide-react";
-import { Link } from "react-router-dom";
+import Layout from "@/components/Layout"
+import { Input } from "@/components/ui/input"
+import { User, History, Store } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const changePassword = () => {
   return (
@@ -50,7 +50,7 @@ const changePassword = () => {
             </div>
             <div className="flex flex-col">
               <Link to={"/shop-profile"}>
-                <div>Shop Profilet</div>
+                <div>Shop Profile</div>
               </Link>
               <Link to={"/list-product"}>
                 <div>My Product</div>
@@ -71,7 +71,7 @@ const changePassword = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default changePassword;
+export default changePassword

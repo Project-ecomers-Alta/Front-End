@@ -1,8 +1,9 @@
-import Layout from "@/components/Layout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, History, Store } from "lucide-react";
-import { Table, TableBody, TableCaption } from "@/components/ui/table";
-import Shoes from "../../assets/assics.jpg";
+import Layout from "@/components/Layout"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { User, History, Store } from "lucide-react"
+import { Table, TableBody, TableCaption } from "@/components/ui/table"
+import Shoes from "../../assets/assics.jpg"
+import { Link } from "react-router-dom"
 
 const historyOrder = () => {
   return (
@@ -23,8 +24,12 @@ const historyOrder = () => {
             </div>
             <div className="flex flex-col pr-4">
               <div>My Account</div>
-              <div>Profile</div>
-              <div>Change Password</div>
+              <Link to={"/profile"}>
+                <div>Profile</div>
+              </Link>
+              <Link to={"/change-password"}>
+                <div>Change Password</div>
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-4 bg-cyan-600 py-2 m-4 rounded-lg">
@@ -46,8 +51,12 @@ const historyOrder = () => {
               />
             </div>
             <div className="flex flex-col">
-              <div>Shop Profile</div>
-              <div>My Product</div>
+              <Link to={"/shop-profile"}>
+                <div>Shop Profile</div>
+              </Link>
+              <Link to={"/list-product"}>
+                <div>My Product</div>
+              </Link>
             </div>
           </div>
         </div>
@@ -233,7 +242,7 @@ const historyOrder = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default historyOrder;
+export default historyOrder

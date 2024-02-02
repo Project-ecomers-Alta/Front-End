@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/pagination"
 import useRetrieveUsers from "@/hooks/useRetrieveUsers"
 import useRetrieveUsersForm from "@/hooks/useRetrieveUsersForm"
+import { Link } from "react-router-dom"
 
 function AdminUser() {
   const { search, handleSearch } = useRetrieveUsersForm()
@@ -35,13 +36,20 @@ function AdminUser() {
       </div>
       <div className="flex flex-wrap">
         <div className="flex">
-          <div className="px-5 bg-[#579BB1] w-32 max-h-max ">
+          <div className="px-5 bg-[#579BB1] w-32 h-screen ">
             <div>
-              <img className="w-[76px] h-[76px] mb-10" src={Person} alt="" />
-              <img className="ps-2" src={Order} />
+              <Link to={"/admin-user"}>
+                <img className="w-[76px] h-[76px] mb-10" src={Person} alt="" />
+              </Link>
+              <Link to={"/admin-order"}>
+                {" "}
+                <img className="ps-2" src={Order} />
+              </Link>
             </div>
             <footer className="fixed bottom-10 left-4 w-full  p-2 text-white text-center">
-              <img className="ps-2" src={Logout} alt="Logout" />
+              <Link to={"/"}>
+                <img className="ps-2" src={Logout} alt="Logout" />
+              </Link>
             </footer>
           </div>
           <div className="">

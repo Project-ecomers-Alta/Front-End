@@ -20,6 +20,7 @@ import {
 import { getProduct } from "@/utils/apis/products/api";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/utils/apis/products/types";
+import { Link } from "react-router-dom";
 
 const index = () => {
   const [data, setData] = useState<IProduct[]>();
@@ -61,7 +62,7 @@ const index = () => {
           <CarouselNext />
         </Carousel>
       </div>
-      <div className="flex justify-center bg-gray-200 mb-4 container w-96 rounded-lg">
+      {/* <div className="flex justify-center bg-gray-200 mb-4 container w-96 rounded-lg">
         <div className="flex flex-col items-center">
           <img src={Image} width={100} alt="" />
           Men Shoes
@@ -71,22 +72,24 @@ const index = () => {
           <img src={Image} width={100} alt="" />
           Women Shoes
         </div>
-      </div>
+      </div> */}
       <div>
         <p className="font-medium w-36 border-b-2 border-cyan-600 ml-24 mb-4">
           Grab the Best Deal!
         </p>
       </div>
-      <div className="flex justify-center gap-10 mb-4">
+      <div className="flex flex-wrap justify-center gap-10 mb-4">
         {data?.map((item, index) => (
           <div className="w-[300px] shadow-2xl" key={index}>
-            <div>
-              <img src={Image} width={300} alt="" />
-            </div>
+            <Link to={`/product-detail/${item.id}`}>
+              <div>
+                <img src={Image} width={300} alt="" />
+              </div>
+            </Link>
             <div className="bg-[#F8F4EA] p-4">
               <p className="font-semibold">{item.product_name}</p>
-              <p className="text-[#DD611B] font-semibold">{item.price}</p>
-              <p>{item.user_info.nama_user}</p>
+              <p className="text-[#DD611B] font-semibold">Rp.{item.price}</p>
+              <p>{item.user.user_name}</p>
             </div>
           </div>
         ))}
@@ -98,15 +101,6 @@ const index = () => {
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">4</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />

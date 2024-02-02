@@ -3,11 +3,11 @@ import { useState, useEffect } from "react"
 import { useToken } from "@/utils/context/token"
 
 interface User {
-  UserName: string
-  Domicile: string
-  Email: string
-  PhoneNumber: number
-  Image: string
+  UserName: string;
+  Domicile: string;
+  Email: string;
+  PhoneNumber: number;
+  Image: string;
 }
 
 const useRetrieveProfileUser = () => {
@@ -24,15 +24,15 @@ const useRetrieveProfileUser = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        });
 
-        setData(response.data.data)
+        setData(response.data.data);
       } catch (error) {
-        setError(`Error fetching data: ${error}`)
+        setError(`Error fetching data: ${error}`);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
     fetchData()
   }, [token])
@@ -41,7 +41,7 @@ const useRetrieveProfileUser = () => {
     data,
     isLoading,
     error,
-  }
-}
+  };
+};
 
-export default useRetrieveProfileUser
+export default useRetrieveProfileUser;

@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { Input } from "@/components/ui/input";
 import { User, History, Store } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const changePassword = () => {
   return (
@@ -21,7 +22,9 @@ const changePassword = () => {
             </div>
             <div className="flex flex-col pr-4">
               <div>My Account</div>
-              <div>Profile</div>
+              <Link to={"/profile"}>
+                <div>Profile</div>
+              </Link>
               <div className="text-white font-semibold">Change Password</div>
             </div>
           </div>
@@ -33,7 +36,9 @@ const changePassword = () => {
                 className="bg-cyan-600 item-center rounded-full py-2 ml-4"
               />
             </div>
-            <div>My Purchase</div>
+            <Link to={"/history-order"}>
+              <div>My Purchase</div>
+            </Link>
           </div>
           <div className="flex items-center gap-4 bg-gray-300 py-2 m-4 rounded-lg">
             <div>
@@ -44,8 +49,12 @@ const changePassword = () => {
               />
             </div>
             <div className="flex flex-col">
-              <div>Shop Profile</div>
-              <div>My Product</div>
+              <Link to={"/shop-profile"}>
+                <div>Shop Profilet</div>
+              </Link>
+              <Link to={"/list-product"}>
+                <div>My Product</div>
+              </Link>
             </div>
           </div>
         </div>

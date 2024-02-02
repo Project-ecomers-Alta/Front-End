@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout"
 import { Input } from "@/components/ui/input"
 import { User, History, Store } from "lucide-react"
-import Image from "../../assets/unnamed.jpg"
 import { Textarea } from "@/components/ui/textarea"
 import useRetrieveShop from "@/hooks/useRetrieveShop"
 
@@ -107,7 +106,12 @@ const shopProfile: React.FC = () => {
         </div>
         <div className="flex flex-col mr-40 gap-5">
           <div>
-            <img src={Image} className="rounded-full" width={160} alt="" />
+            <img
+              src={user?.ShopImage}
+              className="rounded-full"
+              width={160}
+              alt=""
+            />
           </div>
           <button className="bg-gray-300 hover:bg-gray-300 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
             Select image

@@ -23,6 +23,15 @@ export const addItem = async (body: any) => {
   }
 };
 
+export const addCart = async (id: string) => {
+  try {
+    const response = await axiosWithConfig.post(`cart/${id}`);
+    return response.data as { message: string };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
 export const getCart = async () => {
   try {
     const response = await axiosWithConfig.get(`cart`);

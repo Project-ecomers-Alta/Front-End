@@ -62,7 +62,7 @@ const index = () => {
           <CarouselNext />
         </Carousel>
       </div>
-      <div className="flex justify-center bg-gray-200 mb-4 container w-96 rounded-lg">
+      {/* <div className="flex justify-center bg-gray-200 mb-4 container w-96 rounded-lg">
         <div className="flex flex-col items-center">
           <img src={Image} width={100} alt="" />
           Men Shoes
@@ -72,7 +72,7 @@ const index = () => {
           <img src={Image} width={100} alt="" />
           Women Shoes
         </div>
-      </div>
+      </div> */}
       <div>
         <p className="font-medium w-36 border-b-2 border-cyan-600 ml-24 mb-4">
           Grab the Best Deal!

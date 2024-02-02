@@ -1,23 +1,60 @@
-import Layout from "@/components/Layout";
-import { Input } from "@/components/ui/input";
-import { User, History, Store } from "lucide-react";
-import Image from "../../assets/unnamed.jpg";
-import { Textarea } from "@/components/ui/textarea";
-import useRetrieveShop from "@/hooks/useRetrieveShop";
-import { Link } from "react-router-dom";
+import Layout from "@/components/Layout"
+import { Input } from "@/components/ui/input"
+import { User, History, Store } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
+import useRetrieveShop from "@/hooks/useRetrieveShop"
+import { Link } from "react-router-dom"
+import useUpdateShopProfile from "@/hooks/useUpdateShopProfile"
+import { useState } from "react"
 
-const shopProfile: React.FC = () => {
-  const { data, isLoading, error } = useRetrieveShop();
+interface ShopData {
+  id: number
+  ShopName: string
+  Tagline: string
+  Province: string
+  City: string
+  Subdistrict: string
+  Address: string
+  ShopImage: string
+}
+
+const ShopProfile: React.FC = () => {
+  const { data, isLoading, error } = useRetrieveShop()
+  const { updateShop } = useUpdateShopProfile()
+
+  const [shopData, setShopData] = useState<Partial<ShopData>>({
+    ShopName: "",
+    Tagline: "",
+    Province: "",
+    City: "",
+    Subdistrict: "",
+    Address: "",
+  })
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>
   }
 
-  const user = data;
+  const user = data
+
+  const handleInputChange = (
+    field: keyof ShopData,
+    value: string | undefined
+  ) => {
+    setShopData((prevShopData) => ({
+      ...prevShopData,
+      [field]: value || "",
+    }))
+  }
+
+  const handleShopUpdate = async () => {
+    await updateShop(shopData)
+  }
+
   return (
     <Layout>
       <div className="ml-24 my-10">
@@ -77,46 +114,76 @@ const shopProfile: React.FC = () => {
           <div className="flex gap-2">
             <div>
               <div className="w-[250px]">Shop Name</div>
-              <Input value={user?.ShopName} />
+              <Input
+                value={shopData.ShopName || ""}
+                onChange={(e) => handleInputChange("ShopName", e.target.value)}
+              />
             </div>
             <div className="ml-auto">
               <div className="w-[250px]">Tag Line</div>
-              <Input value={user?.Tagline} />
+              <Input
+                value={shopData.Tagline || ""}
+                onChange={(e) => handleInputChange("Tagline", e.target.value)}
+              />
             </div>
           </div>
           <div className="flex gap-2">
             <div>
               <div>
                 <div className="w-[170px]">Province</div>
-                <Input value={user?.Province} />
+                <Input
+                  value={shopData.Province || ""}
+                  onChange={(e) =>
+                    handleInputChange("Province", e.target.value)
+                  }
+                />
               </div>
             </div>
             <div>
               <div>
                 <div className="w-[170px]">City</div>
-                <Input value={user?.City} />
+                <Input
+                  value={shopData.City || ""}
+                  onChange={(e) => handleInputChange("City", e.target.value)}
+                />
               </div>
             </div>
             <div>
               <div>
                 <div className="w-[170px]">Subdistrict</div>
-                <Input value={user?.Subdistrict} />
+                <Input
+                  value={shopData.Subdistrict}
+                  onChange={(e) =>
+                    handleInputChange("Subdistrict", e.target.value)
+                  }
+                />
               </div>
             </div>
           </div>
           <div>
             Address
-            <Textarea value={user?.Address} />
+            <Textarea
+              value={shopData.Address}
+              onChange={(e) => handleInputChange("Address", e.target.value)}
+            />
           </div>
           <div className="flex justify-end gap-4">
-            <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
+            <button
+              onClick={handleShopUpdate}
+              className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105"
+            >
               Submit
             </button>
           </div>
         </div>
         <div className="flex flex-col mr-40 gap-5">
           <div>
-            <img src={Image} className="rounded-full" width={160} alt="" />
+            <img
+              src={user?.ShopImage}
+              className="rounded-full"
+              width={160}
+              alt=""
+            />
           </div>
           <button className="bg-gray-300 hover:bg-gray-300 font-semibold h-12 w-40 rounded-full text-md transition duration-300 ease-in-out transform text-gray-600 hover:text-gray-600 hover:scale-105">
             Select image
@@ -124,7 +191,7 @@ const shopProfile: React.FC = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default shopProfile;
+export default ShopProfile

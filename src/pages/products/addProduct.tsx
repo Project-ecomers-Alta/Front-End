@@ -6,8 +6,11 @@ import { addItem } from "@/utils/apis/products/api";
 import { IProductType, productSchema } from "@/utils/apis/products/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const addProduct = () => {
+  const navigate = useNavigate();
+
   const { register, handleSubmit } = useForm<IProductType>({
     resolver: zodResolver(productSchema),
   });
@@ -22,7 +25,7 @@ const addProduct = () => {
     try {
       const result = await addItem(payload);
       alert(result.message);
-      console.log(result);
+      navigate("/list-product");
     } catch (error) {
       console.log(error);
     }

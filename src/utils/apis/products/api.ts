@@ -1,6 +1,6 @@
 import { ResponsePayload } from "@/utils/types/api";
 import axios from "axios";
-import { IProduct, OrderType, ProductCart, ResponseOrder } from "./types";
+import { IProduct, OrderType, ProductCart, ResponseOrder, ShopPhotoType, ShopProduct } from "./types";
 import axiosWithConfig from "../axiosWithConfig";
 
 export const getProduct = async () => {
@@ -12,8 +12,16 @@ export const getProduct = async () => {
   }
 };
 
+export const getShopProduct = async () => {
+  try {
+    const response = await axios.get("https://be20.online/product");
+    return response.data as ResponsePayload<ShopProduct[]>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
 export const addItem = async (body: any) => {
-  console.log(body);
   try {
     const response = await axiosWithConfig.post("product", body);
     console.log(response.data);
@@ -23,9 +31,18 @@ export const addItem = async (body: any) => {
   }
 };
 
-export const addCart = async (id: string) => {
+export const addPhotoProduct = async (body: ShopPhotoType, id: string) => {
   try {
-    const response = await axiosWithConfig.post(`cart/${id}`);
+    const response = await axiosWithConfig.post(`product/${id}/image`, body);
+    return response.data as { message: string };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const addCart = async (id: number) => {
+  try {
+    const response = await axiosWithConfig.post(`cart`, id);
     return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
@@ -43,9 +60,20 @@ export const getCart = async () => {
 
 export const createOrder = async (body: OrderType) => {
   try {
-    const response = await axiosWithConfig.post(`/order`, body);
+    const response = await axiosWithConfig.post(`order`, body);
     return response.data as ResponsePayload<ResponseOrder>;
   } catch (error: any) {
     throw new Error(error.message);
   }
 };
+
+
+
+// export const deleteCart = async (body: DeleteCart) => {
+//   try {
+//     const response = await axiosWithConfig.delete(`cart`, body);
+//     return response.data as { message: string };
+//   } catch (error: any) {
+//     throw new Error(error.message);
+//   }
+// };

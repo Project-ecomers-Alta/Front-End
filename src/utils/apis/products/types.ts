@@ -1,5 +1,8 @@
 import * as z from "zod";
 
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 export interface IProduct {
   id: number;
   product_name: string;
@@ -34,9 +37,55 @@ export const productSchema = z.object({
 export type IProductType = z.infer<typeof productSchema>;
 
 export interface OrderType {
-  address : string
-  payment_method : string
+  address: string;
+  payment_method: string;
 }
+
+export interface ShopProduct {
+  id: number;
+  user_id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  price: number;
+  category: string;
+  user: {
+    id: number;
+    user_name: string;
+    email: string;
+    domicile: string;
+    phone_number: number;
+    image: string;
+    tag_line: string;
+    provinci: string;
+    city: string;
+    subdistrict: string;
+    address: string;
+    shop_image: string;
+  };
+  details_images: IPhoto[];
+}
+
+export interface IPhoto {
+  id: number;
+  product_id: number;
+  images: string;
+}
+
+export const photoSchema = z.object({
+  image_url: z
+    .any()
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      "Max image size is 5MB"
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      "Only .jpg, .jpeg, .png formats are supported"
+    )
+    .optional()
+    .or(z.literal("")),
+});
 
 export interface ResponseOrder {
   order_id: string;
@@ -55,37 +104,43 @@ export interface PaymentOrder {
   expired_at: string;
 }
 
-
 export interface ProductCart {
-  id: number,
-  product_id: number,
-  user_id: number,
-  quantity: number,
-  product: SelectedProduct
+  id: number;
+  product_id: number;
+  user_id: number;
+  quantity: number;
+  product: SelectedProduct;
 }
 
 export interface SelectedProduct {
-  id: number,
-  user_id: number,
-  name: string,
-  description: string,
-  quantity: number,
-  price: number,
-  category: string,
-  user: UserDetail
+  id: number;
+  user_id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  price: number;
+  category: string;
+  user: UserDetail;
 }
 
 export interface UserDetail {
-  id: number,
-  user_name: string,
-  email: string,
-  domicile: string,
-  phone_number: number,
-  image: string,
-  tag_line: string,
-  provinci: string,
-  city: string,
-  subdistrict: string,
-  address: string,
-  category: string
+  id: number;
+  user_name: string;
+  email: string;
+  domicile: string;
+  phone_number: number;
+  image: string;
+  tag_line: string;
+  provinci: string;
+  city: string;
+  subdistrict: string;
+  address: string;
+  category: string;
 }
+
+export interface IOrderType {}
+// export interface DeleteCart {
+//   ids: []
+// }
+
+export type ShopPhotoType = z.infer<typeof photoSchema> 

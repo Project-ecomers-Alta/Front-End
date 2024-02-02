@@ -3,18 +3,17 @@ import Footer from "@/components/Footer";
 import useRetrieveDetailProduct from "@/hooks/useRetrieveDetailProduct";
 import Navbar from "@/components/Navbar";
 import Image from "../../assets/assics.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useToken } from "@/utils/context/token";
 import { useToast } from "@/components/ui/use-toast";
 import { addCart } from "@/utils/apis/products/api";
-import { useCart } from "@/utils/context/cartContext";
 
 function ProductDetail() {
-  const { data, isLoading, error } = useRetrieveDetailProduct(1);
+  const { id } = useParams();
+  const { data, isLoading, error } = useRetrieveDetailProduct(Number(id));
   const navigate = useNavigate();
   const { token } = useToken();
   const { toast } = useToast();
-  const { changeCart } = useCart();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -30,11 +29,10 @@ function ProductDetail() {
 
   const product = data;
 
-  const fetchAddCart = async (id: number) => {
+  const fetchAddCart = async () => {
     if (!token) return navigate("/login");
     try {
-      const response = await addCart(`${id}`);
-      changeCart();
+      const response = await addCart(data.id);
       toast({
         title: "Succesfully added to Cart",
         description: response.message,
@@ -73,7 +71,7 @@ function ProductDetail() {
               <div className="pb-2">
                 <button
                   className="bg-[#579BB1] py-2 px-6 rounded-xl text-white"
-                  onClick={() => fetchAddCart(product.id)}
+                  onClick={() => fetchAddCart()}
                 >
                   Add to Cart
                 </button>

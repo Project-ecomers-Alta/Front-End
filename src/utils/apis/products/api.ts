@@ -1,6 +1,13 @@
 import { ResponsePayload } from "@/utils/types/api";
 import axios from "axios";
-import { IProduct, OrderType, ProductCart, ResponseOrder, ShopPhotoType, ShopProduct } from "./types";
+import {
+  IProduct,
+  OrderType,
+  ProductCart,
+  ResponseOrder,
+  ShopPhotoType,
+  ShopProduct,
+} from "./types";
 import axiosWithConfig from "../axiosWithConfig";
 
 export const getProduct = async () => {
@@ -33,7 +40,12 @@ export const addItem = async (body: any) => {
 
 export const addPhotoProduct = async (body: ShopPhotoType, id: string) => {
   try {
-    const response = await axiosWithConfig.post(`product/${id}/image`, body);
+    const formData = new FormData();
+    formData.append("image_url", body.image_url[0]);
+    const response = await axiosWithConfig.post(
+      `product/${id}/image`,
+      formData
+    );
     return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
@@ -42,7 +54,9 @@ export const addPhotoProduct = async (body: ShopPhotoType, id: string) => {
 
 export const addCart = async (id: number) => {
   try {
-    const response = await axiosWithConfig.post(`cart`, id);
+    const response = await axiosWithConfig.post(`cart`, {
+      product_id : id
+    });
     return response.data as { message: string };
   } catch (error: any) {
     throw new Error(error.message);
@@ -66,8 +80,6 @@ export const createOrder = async (body: OrderType) => {
     throw new Error(error.message);
   }
 };
-
-
 
 // export const deleteCart = async (body: DeleteCart) => {
 //   try {

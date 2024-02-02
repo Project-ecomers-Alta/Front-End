@@ -16,7 +16,7 @@ const shoppingCart = () => {
       .get("cart")
       .then((res) => {
         setCart(res.data.data);
-        console.log(res.data);
+        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }
@@ -74,15 +74,15 @@ const shoppingCart = () => {
   //     .catch((error) => console.log(error));
   // }
 
-  function deleteCartHandle(id: number) {
-    axiosWithConfig
-      .delete(`cart`)
-      .then((res) => {
-        console.log(res);
-        changeCart();
-      })
-      .catch((error) => console.log(error));
-  }
+  // function deleteCartHandle(id: number) {
+  //   axiosWithConfig
+  //     .delete(`cart`)
+  //     .then((res) => {
+  //       console.log(res);
+  //       changeCart();
+  //     })
+  //     .catch((error) => console.log(error));
+  // }
 
   return (
     <Layout>

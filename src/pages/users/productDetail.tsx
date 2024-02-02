@@ -8,7 +8,7 @@ import { useToken } from "@/utils/context/token";
 import { useToast } from "@/components/ui/use-toast";
 import { addCart } from "@/utils/apis/products/api";
 
-function ProductDetail() {
+function dataDetail() {
   const { id } = useParams();
   const { data, isLoading, error } = useRetrieveDetailProduct(Number(id));
   const navigate = useNavigate();
@@ -27,12 +27,12 @@ function ProductDetail() {
     return <div>No data available</div>;
   }
 
-  const product = data;
-
   const fetchAddCart = async () => {
     if (!token) return navigate("/login");
+    console.log(data);
     try {
       const response = await addCart(data.id);
+      console.log(response.message);
       toast({
         title: "Succesfully added to Cart",
         description: response.message,
@@ -50,24 +50,22 @@ function ProductDetail() {
       <Navbar />
       <div>
         <div className="flex flex-col px-28 lg:flex-row ">
-          <div className="flex" key={product.id}>
+          <div className="flex" key={data.id}>
             <div className="w-full ps-10 ">
               <img src={Image} width={400} alt="" />
-              <div>{product.details_images}</div>
+              <div>{data.details_images}</div>
               <div className="flex">
-                <div>{product.details_images}</div>
-                <div>{product.details_images}</div>
-                <div>{product.details_images}</div>
+                <div>{data.details_images}</div>
+                <div>{data.details_images}</div>
+                <div>{data.details_images}</div>
               </div>
             </div>
             <div>
-              <div className="text-[40px] font-normal">{product.name}</div>
+              <div className="text-[40px] font-normal">{data.name}</div>
               <div className="text-[36px] font-normal pb-4">
-                Rp. {product.price}
+                Rp. {data.price}
               </div>
-              <div className="text-[20px] font-light pb-2">
-                {product.category}
-              </div>
+              <div className="text-[20px] font-light pb-2">{data.category}</div>
               <div className="pb-2">
                 <button
                   className="bg-[#579BB1] py-2 px-6 rounded-xl text-white"
@@ -79,13 +77,11 @@ function ProductDetail() {
               <div className="text-[20px] font-light pb-2">
                 Stock
                 <div className=" bg-gray-200 w-9 rounded-lg font-normal">
-                  {product.quantity}
+                  {data.quantity}
                 </div>
               </div>
               <div className="text-[20px] font-medium pb-2">Description</div>
-              <div className="text-[16px] font-normal">
-                {product.description}
-              </div>
+              <div className="text-[16px] font-normal">{data.description}</div>
               <div className="pb-2">
                 <hr className=" border-black" />
               </div>
@@ -93,12 +89,12 @@ function ProductDetail() {
                 <div>
                   <img
                     className="w-14 rounded-full"
-                    src={product.user.shop_image}
+                    src={data.user.shop_image}
                     alt="User"
                   />
                 </div>
                 <div className="text-[14px] font-normal p-4">
-                  {product.user.user_name}
+                  {data.user.user_name}
                 </div>
               </div>
               <div className="flex items-center pb-4">
@@ -106,7 +102,7 @@ function ProductDetail() {
                   <img className="w-12 h-10" src={Pin} alt="Location" />
                 </div>
                 <div className="text-[13px] font-medium px-2">
-                  {product.user.provinci}
+                  {data.user.provinci}
                 </div>
               </div>
             </div>
@@ -118,4 +114,4 @@ function ProductDetail() {
   );
 }
 
-export default ProductDetail;
+export default dataDetail;

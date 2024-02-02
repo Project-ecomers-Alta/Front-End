@@ -7,16 +7,19 @@ import { addPhotoProduct } from "@/utils/apis/products/api";
 import { ShopPhotoType, photoSchema } from "@/utils/apis/products/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImagePlus } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const editProduct = () => {
   const { state } = useLocation();
-  console.log(state);
+  const { id } = useParams();
 
-  const fetchAddPhoto = async (body: ShopPhotoType, id: string) => {
+  const [image, setImage] = useState("");
+
+  const fetchAddPhoto = async (body: ShopPhotoType) => {
     try {
-      const response = await addPhotoProduct(body, id);
+      const response = await addPhotoProduct(body, id as string);
       toast({
         title: "Succesfully added to Photo",
         description: response.message,
@@ -29,17 +32,13 @@ const editProduct = () => {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm({
+  const { register, handleSubmit, getValues } = useForm<ShopPhotoType>({
     resolver: zodResolver(photoSchema),
     defaultValues: {
       image_url: "",
     },
   });
-
+  console.log(getValues("image_url"));
   return (
     <Layout>
       <div className="flex flex-wrap justify-between m-24">
@@ -48,7 +47,7 @@ const editProduct = () => {
             Back
           </button>
         </Link>
-        <form>
+        <form onSubmit={handleSubmit(fetchAddPhoto)}>
           <div className="mb-10">
             <div className="bg-gray-300 p-40 flex flex-col items-center rounded-lg">
               <ImagePlus color="#000000" className="mb-5" />
@@ -62,11 +61,9 @@ const editProduct = () => {
                 })}
               />
             </div>
+            <img src={image} className="size-32" />
           </div>
-          <button
-            className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105"
-            onClick={() => fetchAddPhoto}
-          >
+          <button className="bg-cyan-600 hover:bg-cyan-200 font-semibold h-12 w-32 rounded-full text-md transition duration-300 ease-in-out transform text-white hover:text-white hover:scale-105">
             Submit Photo
           </button>
         </form>

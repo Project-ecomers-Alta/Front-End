@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {  ProductCart } from "@/utils/apis/products/types";
+import { ProductCart } from "@/utils/apis/products/types";
 import { getCart } from "@/utils/apis/products/api";
 
 function OrderPage() {
@@ -24,10 +24,6 @@ function OrderPage() {
   useEffect(() => {
     fetchCart();
   }, []);
-
-  const handleNext = () => {
-
-  }
 
   return (
     <div>
@@ -100,7 +96,9 @@ function OrderPage() {
                   </th>
                   <th className="py-12 px-4 font-normal"></th>
                   <th className="py-12 px-4 font-normal">{item.quantity}</th>
-                  <th className="py-12 px-4 text-right pr-12 font-semibold">{item.product.price}</th>
+                  <th className="py-12 px-4 text-right pr-12 font-semibold">
+                    {item.product.price}
+                  </th>
                 </tr>
               ))}
           </tbody>
@@ -111,17 +109,17 @@ function OrderPage() {
         </div>
         <div className="flex justify-end gap-9 pb-28">
           <div>
-            <Link to={"shopping-cart"}>
-            <button className="w-[200px] h-[50px] bg-[#579BB1] text-white rounded-3xl">
-              Cancel
-            </button>
+            <Link to={"/shopping-cart"}>
+              <button className="w-[200px] h-[50px] bg-[#579BB1] text-white rounded-3xl">
+                Cancel
+              </button>
             </Link>
           </div>
-          <div>
+          <Link to={"/payment-page"}>
             <button className="w-[200px] h-[50px] bg-[#579BB1] text-white rounded-3xl">
               Next
             </button>
-          </div>
+          </Link>
         </div>
       </div>
       <Footer />

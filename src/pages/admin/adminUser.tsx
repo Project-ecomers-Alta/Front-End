@@ -20,14 +20,22 @@ import {
 } from "@/components/ui/pagination"
 import useRetrieveUsers from "@/hooks/useRetrieveUsers"
 import useRetrieveUsersForm from "@/hooks/useRetrieveUsersForm"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useToken } from "@/utils/context/token"
 
 function AdminUser() {
+  const { changeToken } = useToken();
   const { search, handleSearch } = useRetrieveUsersForm()
+  const navigate = useNavigate();
 
   const { data, isLoading } = useRetrieveUsers({
     search: search,
   })
+
+  const handleLogout = () => {
+    changeToken("");
+    navigate("/login")
+  };
 
   return (
     <div className="bg-[#D9D9D9] w-screen h-max">
@@ -47,9 +55,9 @@ function AdminUser() {
               </Link>
             </div>
             <footer className="fixed bottom-10 left-4 w-full  p-2 text-white text-center">
-              <Link to={"/"}>
-                <img className="ps-2" src={Logout} alt="Logout" />
-              </Link>
+              
+                <img className="ps-2" src={Logout} alt="Logout" onClick={() => handleLogout()}/>
+              
             </footer>
           </div>
           <div className="">

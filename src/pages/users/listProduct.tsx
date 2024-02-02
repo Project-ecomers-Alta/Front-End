@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SquarePen, Trash2 } from "lucide-react";
-import Shoes from "../../assets/assics.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getShopProduct } from "@/utils/apis/products/api";
@@ -17,9 +16,8 @@ import { ShopProduct } from "@/utils/apis/products/types";
 
 const listProduct = () => {
   const navigate = useNavigate();
-
-  const handleEdit = () => {
-    navigate("/edit-product");
+  const handleEdit = (id:number) => {
+    navigate("/edit-product/"+id);
   };
 
   const [data, setData] = useState<ShopProduct[]>([]);
@@ -104,7 +102,7 @@ const listProduct = () => {
                       color="#ffffff"
                       size="40"
                       className="bg-cyan-600 item-center rounded-full py-1 ml-4"
-                      onClick={handleEdit}
+                      onClick={() => handleEdit(item.id)}
                     />
                     <Trash2
                       color="#ffffff"

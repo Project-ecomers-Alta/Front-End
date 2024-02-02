@@ -35,7 +35,7 @@ const Payment = (props: Props) => {
             <p className="text-base font-semibold">Bank BCA</p>
           </div>
         </AccordionContent>
-        {/* <AccordionContent className="border-x">
+        <AccordionContent className="border-x">
           <div
             onClick={() => handleSelect("bri")}
             className="flex cursor-pointer rounded-sm hover:bg-slate-100 gap-4 px-9 py-4 items-center hover:rounded-md"
@@ -58,7 +58,7 @@ const Payment = (props: Props) => {
             />
             <p className="text-base font-semibold">Bank BNI</p>
           </div>
-        </AccordionContent> */}
+        </AccordionContent>
       </AccordionItem>
     </Accordion>
   );

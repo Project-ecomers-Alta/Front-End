@@ -62,9 +62,9 @@ function PaymentPage() {
       <div className="py-5 min-h-screen">
         <div className="flex container mx-auto p-10 shadow-sm rounded-lg border-2 space-y-16">
           <div className="w-full flex-col space-y-10">
-            <div className="md:text-lg flex justify-center font-semibold gap-10 lg:gap-0 md:justify-start">
+            <div className="text-xl flex justify-center font-semibold gap-10 lg:gap-0 md:justify-start">
               Total Bill :
-              <span className="font-bold border-none outline-none bg-transparent pl-3">
+              <span className="font-bold text-2xl border-none outline-none bg-transparent pl-3">
                 {formattedAmount(totalPayment)}
               </span>
             </div>

@@ -1,6 +1,6 @@
-import Person from "../../assets/person.png"
-import Order from "../../assets/order-history.png"
-import Logout from "../../assets/logout.png"
+import Person from "../../assets/person.png";
+import Order from "../../assets/order-history.png";
+import Logout from "../../assets/logout.png";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   Pagination,
   PaginationContent,
@@ -17,17 +17,25 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
-import useRetrieveOrders from "@/hooks/useRetrieveOrders"
-import useRetrieveOrdersForm from "@/hooks/useRetrieveOrdersForm"
-import { Link } from "react-router-dom"
+} from "@/components/ui/pagination";
+import useRetrieveOrders from "@/hooks/useRetrieveOrders";
+import useRetrieveOrdersForm from "@/hooks/useRetrieveOrdersForm";
+import { Link, useNavigate } from "react-router-dom";
+import { useToken } from "@/utils/context/token";
 
 function AdminOrder() {
-  const { search, handleSearch } = useRetrieveOrdersForm()
+  const { search, handleSearch } = useRetrieveOrdersForm();
+  const { changeToken } = useToken();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useRetrieveOrders({
     search: search,
-  })
+  });
+
+  const handleLogout = () => {
+    changeToken("");
+    navigate("/login");
+  };
 
   return (
     <div className="bg-[#D9D9D9] w-screen h-max">
@@ -46,9 +54,12 @@ function AdminOrder() {
               </Link>
             </div>
             <footer className="fixed bottom-10 left-4 w-full  p-2 text-white text-center">
-              <Link to={"/"}>
-                <img className="ps-2" src={Logout} alt="Logout" />
-              </Link>
+              <img
+                className="ps-2"
+                src={Logout}
+                alt="Logout"
+                onClick={() => handleLogout()}
+              />
             </footer>
           </div>
           <div>
@@ -144,7 +155,7 @@ function AdminOrder() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AdminOrder
+export default AdminOrder;

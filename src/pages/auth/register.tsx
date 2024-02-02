@@ -49,7 +49,7 @@ const register = () => {
       const result = await userLogin(body);
       console.log(result.data);
       changeToken(result.data.token);
-      navigate("/");
+      result?.data.role === "admin" ? navigate("/admin-user") : navigate("/");
     } catch (error) {
       console.log(error);
     }
